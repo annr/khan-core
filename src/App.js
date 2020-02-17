@@ -1,20 +1,29 @@
 import React from 'react';
+import Container from "./Container"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <a
-          className="project-link"
-          href="https://github.com/annr/khan-core"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View this project on GitHub
+class App extends React.Component {
+
+  render() {
+    return (
+      <React.Fragment>
+        <div className="containerWrapper">
+          {/* <h1>Khan Academy Common Core</h1> */}
+          <Container />
+        </div>
+        <footer>
+          <a
+            className="project-link"
+            href="https://github.com/annr/khan-core"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View this project on GitHub
         </a>
-      </header>
-    </div>
-  );
+        </footer>
+      </React.Fragment>
+    );
+  }
+
 }
 
 export default App;
