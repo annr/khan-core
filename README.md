@@ -1,2 +1,2 @@
 # khan-core
-New Coherence Map + Khan Academy
+Common Core Math Coherence Map + Khan Academy
