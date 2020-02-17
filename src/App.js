@@ -1,15 +1,12 @@
 import React from 'react';
 import Container from "./Container"
-
 class App extends React.Component {
 
   render() {
     return (
       <React.Fragment>
-        <div className="containerWrapper">
-          {/* <h1>Khan Academy Common Core</h1> */}
-          <Container />
-        </div>
+        {/* <h1>Khan Academy Common Core</h1> */}
+        <Container />
         <footer>
           <a
             className="project-link"

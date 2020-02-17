@@ -1,0 +1,8 @@
+.container {
+    border: 1px dashed black;
+}
+.canvas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    border: 1px solid magenta;
+}
