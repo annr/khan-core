@@ -18,6 +18,7 @@ export default class Grade extends React.Component {
     }
     createGrade() {
         const node = this.node;
+        //const data = this.props.data;
 
         select(node)
             .selectAll("g")

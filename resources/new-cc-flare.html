@@ -1,0 +1,242 @@
+<!-- Code from d3-graph-gallery.com -->
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+    <script src="./lodash.js"></script>
+    <script src="https://achievethecore.org/standards-admin/json.php"></script>
+</head>
+<!--
+
+    {
+    "standards": {
+        "id": "K",
+        "name": "Kindergarten",
+        "children": [
+            {
+                "id": "K.CC",
+                "name": "Counting 
+-->
+
+<body>
+    <!-- Create a container where all grades will be rendered -->
+    <script>
+
+        function standardCode(sid, withGrade) {
+            var s = window.cc.standards[sid];
+            var c = window.cc.clusters[s.ccmathcluster_id];
+            var d = window.cc.domains[c.ccmathdomain_id];
+            return [domainCode(d, withGrade), s.ordinal].join('.');
+        }
+
+        function domainCode(d, withGrade) {
+            if (withGrade) {
+                return (d.grade + '.' + d.ordinal).trim();
+            }
+            return d.ordinal.trim();
+        }
+
+        function clusterType(msa) {
+            if (msa === "0") {
+                return "major"
+            }
+            if (msa === "1") {
+                return "supporting"
+            }
+            if (msa === "2") {
+                return "additional"
+            }
+        }
+
+        let gradeNames = ['Kindergarten', '1st Grade', '2nd Grade', '3rd Grade'].concat([4, 5, 6, 7, 8].map((n) => n + 'th Grade'));
+
+
+        var domains_by_grade = [];
+        var grades = [];
+        for (var g = 0; g <= 8; g++) {
+            grades.push(g);
+            domains_by_grade[g] = [];
+        }
+
+        function createFlareObj(id, name, children, data) {
+            return {
+                id,
+                name,
+                children,
+                data
+            }
+        }
+
+        var standards = window.cc.standards;
+        var domains = window.cc.domains;
+        var clusters = window.cc.clusters;
+
+        // standards.map((s) => {
+        //     let childStandards = _(window.cc.standards).pick((x) => x.ccmathcluster_id === window.cc.standards[s.id].ccmathcluster_id && x.ordinal.indexOf(window.cc.standards[s.id].ordinal + '.') === 0).values().value();
+        //     let hasALLChildSubGraph = false;
+        //     childStandards.forEach(standard => {
+
+        //         let subgraph = layoutSubGraph(parentNodes, standard.id, 2, standard.id);
+        //         let flattenSubgraph = _.flatten(subgraph);
+        //         let subgraphNoCurrentRoot = _.without(flattenSubgraph, standard.id);
+        //         if (subgraphNoCurrentRoot && subgraphNoCurrentRoot.length > 0) {
+        //             hasALLChildSubGraph = true;
+        //         }
+        //     });
+        //     if (hasALLChildSubGraph) {
+        //         childStandardsNoParent.push(window.cc.standards[s.id].id);
+        //     }
+        // });
+
+        const flare = {
+            "standards": {
+                id: "CCSS",
+                name: "Common Core State Standards",
+                children: [],
+                data: {}
+            }
+        };
+
+        const flare_grades = [];
+
+        document.write('Standards');
+        document.write('<hr>');
+
+        const new_domains = [];
+        const new_clusters = [];
+        const new_standards = [];
+
+        let clusters_by_domain = [];
+
+        for (d in domains) {
+            // create all the clusters by domain arrays
+            if (domains[d] && domains[d].grade != "HS") {
+                const domainId = parseInt(domains[d].id);
+                if (clusters_by_domain[domainId] === undefined) {
+                    clusters_by_domain[domainId] = []
+                }
+            }
+        }
+        let standards_by_cluster = [];
+
+        // create all the standards by cluster arrays
+        for (c in clusters) {
+            const clusterId = parseInt(clusters[c].id, 10);
+            if (standards_by_cluster[clusterId] === undefined) {
+                standards_by_cluster[clusterId] = []
+            }
+        }
+
+        for (s in standards) {
+            const cluster = standards[s].ccmathcluster_id;
+
+            //make sure not null and that the cluseter has been added.
+            if (standards[s]) {
+                if (standards_by_cluster[cluster]) {
+                    standards_by_cluster[cluster].push(createFlareObj(standards[s].id, null, [], { description: standards[s].desc, codeTrimmed: standardCode(parseInt(s, 10), false), code: standardCode(parseInt(s, 10), true) }));
+                }
+                // old
+                new_standards.push({
+                    "id": s,
+                    "ccmathcluster_id": standards[s].ccmathcluster_id,
+                    "ordinal": standards[s].ccmathcluster_id,
+                    "description": standards[s].desc,
+                    "coherence_map_links": standards[s].links
+                });
+            } else {
+                console.log('Not adding standard without cluster')
+            }
+        }
+
+        // now fill those arrays
+        for (c in clusters) {
+            const domain = parseInt(clusters[c].ccmathdomain_id, 10);
+            const clusterId = parseInt(clusters[c].id, 10);
+            if (clusters[c]) {
+                if (clusters_by_domain[domain]) {
+                    clusters_by_domain[domain].push(createFlareObj(clusters[c].id, clusters[c].name, standards_by_cluster[clusterId], { clusterType: clusterType(clusters[c].msa) }));
+                }
+                // old
+                new_clusters.push(clusters[c]);
+            } else {
+                console.log('Not adding cluster without domain')
+            }
+        }
+
+
+
+        for (d in domains) {
+            if (domains[d] && domains[d].grade != "HS") {
+                if (!clusters_by_domain[parseInt(d, 10)]) {
+                    clusters_by_domain[parseInt(d, 10)] = []
+                }
+                const domainId = parseInt(domains[d].id);
+                const convertedGrade = domains[d].grade === "K" ? 0 : parseInt(domains[d].grade, 10);
+
+                domains_by_grade[convertedGrade].push(createFlareObj(domainId, domains[d].name, clusters_by_domain[domainId]));
+                // old
+                new_domains.push(domains[d]);
+            } else {
+                console.log('Not adding hs domains')
+            }
+        }
+
+
+        const new_cc = {
+            domains: new_domains,
+            clusters: new_clusters,
+            standards: new_standards,
+            edges: window.cc.edges,
+            nd_edges: window.cc.nd_edges,
+        }
+
+        // massive loop
+        for (let i = 0; i < grades.length; i++) {
+            // build domains for each grade
+            flare_grades.push(createFlareObj(grades[i], gradeNames[i], domains_by_grade[i]));
+        }
+
+
+        flare.standards.children = flare_grades;
+
+
+        // then do this in the console:
+        // copy(JSON.stringify(new_cc))
+
+        // standards.map((s) => {
+        //     document.write('hey');
+            //         <h1>{standardCode(window.cc.standards[s.id].id)}</h1>
+            //         {
+            //             (childStandardsNoParent.indexOf(window.cc.standards[s.id].id) > -1) &&
+            //             <StandardsDesc desc={window.cc.standards[s.id].desc} domain={this.props.domain} />
+            //         }
+            //         <div>
+            //             {(childStandardsNoParent.indexOf(window.cc.standards[s.id].id) > -1) ?
+            //                 (
+            //                     <ChildStandardHasSubGraph
+            //                         s={s.id} standards={standards}
+            //                         childStandardsNoParent={childStandardsNoParent}
+            //                         domain={this.props.domain}
+            //                         onSelectStandard={this.props.onSelectStandard} />
+            //                 )
+            //                 :
+            //                 (
+            //                     <ChildStandardHasNoSubGraph
+            //                         s={s.id}
+            //                         standards={standards}
+            //                         domain={this.props.domain}
+            //                         onSelectStandard={this.props.onSelectStandard} />
+            //                 )
+            //             }
+            //         </div>
+        // });
+
+
+        // keep the domains and the clusters
+
+
+    </script>
+
+    <!-- https://achievethecore.org/standards-admin/json.php -->
+
+</body>

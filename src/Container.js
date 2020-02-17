@@ -1,4 +1,5 @@
 import React from "react";
+import data from "./data/ccssm-flare.json";
 import Grade from "./Grade";
 
 export default class Container extends React.Component {
@@ -8,7 +9,7 @@ export default class Container extends React.Component {
         const grades = gradeName.map((d, i) => {
             return (
                 <div className="container" key={i}>
-                    <Grade index={i} />
+                    <Grade index={i} data={data[i]} />
                 </div>
             );
         });
