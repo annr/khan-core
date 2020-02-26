@@ -11,40 +11,58 @@ import "./Container.css";
 
 export default class Container extends React.Component {
     constructor(props) {
-        super(props)
-        this.createZoom = this.createZoom.bind(this)
-    }
-    componentDidMount() {
-        this.createZoom()
-    }
-    componentDidUpdate() {
-        this.createZoom()
-    }
-    createZoom() {
-        const canvas = this.canvas;
-        const container = this.container;
+        super(props);
+        this.createZoom = this.createZoom.bind(this);
+        this.handleResize = this.handleResize.bind(this)
+        this.state = { width: window.innerWidth };
+    };
 
-        const containerNode = select(container);
+    componentDidMount() {
+        this.createZoom();
+        window.addEventListener('resize', this.handleResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+    }
+
+    handleResize() {
+        this.setState({ width: window.innerWidth });
+    }
+
+    componentDidUpdate() {
+        this.createZoom();
+    }
+
+    createZoom() {
+        const grades = this.grades;
+        const canvas = this.canvas;
+
+        const gradesNode = select(grades);
         const canvasNode = select(canvas);
 
         var zoom = d3.zoom()
-            .scaleExtent([0.1, 5])
+            .scaleExtent([0.2, 5])
             .on('zoom', zoomed);
 
-        containerNode.call(zoom);
+        canvasNode.call(zoom);
 
         function zoomed() {
-            var transform = event.transform;
-            canvasNode.style("transform", "translate(0px,0px) scale(" + transform.k + ")");
+            gradesNode.attr("transform", event.transform)
         }
     }
 
     renderGrades() {
+        const width = this.state.width;
         const gradeName = ['Kindergarten', '1st Grade', '2nd Grade', '3rd Grade'].concat([4, 5, 6, 7, 8].map((n) => n + 'th Grade'));
+
+        // until we know the window width, don't add anything.
+        if (width === 0) {
+            return null;
+        }
+
         const grades = gradeName.map((d, i) => {
-            return (
-                <Grade index={i} data={data[i]} key={i} />
-            );
+            return <div key={i}>nothing to see here</div>
         });
 
         return grades;
@@ -53,9 +71,11 @@ export default class Container extends React.Component {
     render() {
         return (
             <div className="container" ref={container => this.container = container} >
-                <div className="canvas" ref={canvas => this.canvas = canvas}>
-                    {this.renderGrades()}
-                </div>
+                <svg className="canvas" ref={canvas => this.canvas = canvas}>
+                    <g className="grades" ref={grades => this.grades = grades}>
+                        {this.renderGrades()}
+                    </g>
+                </svg>
             </div>
         );
     }
