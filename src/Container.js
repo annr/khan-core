@@ -8,6 +8,7 @@ import { select, event } from 'd3-selection';
 import Grade from "./Grade";
 
 import "./Container.css";
+import { getTransformsAndWidths } from "./responsiveLayout.js";
 
 export default class Container extends React.Component {
     constructor(props) {
@@ -52,6 +53,13 @@ export default class Container extends React.Component {
         }
     }
 
+
+    renderGrade(i, layout) {
+        return (
+            <Grade index={i} data={data[i]} key={i} transformX={layout[0]} transformY={layout[1]} gWidth={layout[2]} />
+        );
+    }
+
     renderGrades() {
         const width = this.state.width;
         const gradeName = ['Kindergarten', '1st Grade', '2nd Grade', '3rd Grade'].concat([4, 5, 6, 7, 8].map((n) => n + 'th Grade'));
@@ -61,8 +69,11 @@ export default class Container extends React.Component {
             return null;
         }
 
+        // for now, we are figuring out how to lay out the grades based on window width.
+        const layout = getTransformsAndWidths(gradeName.length, width);
+
         const grades = gradeName.map((d, i) => {
-            return <div key={i}>nothing to see here</div>
+            return this.renderGrade(i, layout[i]);
         });
 
         return grades;

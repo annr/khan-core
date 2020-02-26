@@ -29,17 +29,31 @@ export default class Grade extends React.Component {
             .append("rect")
             .attr("x", 0)
             .attr("y", 0)
-            .attr('width', 50)
-            .attr('height', 50)
+            // .attr('width', this.props.gWidth)
+            // .attr('height', this.props.gWidth)
+            .attr('width', this.props.gWidth)
+            .attr('height', this.props.gWidth)
             .attr("fill", "pink")
+            .attr("stroke", "green")
+            .attr("stroke-width", 2)
+
+        select(node)
+            .selectAll("text")
+            .data([this.props.index])
+            .enter()
+            .append("text")
+            .attr("text-anchor", "middle")
+            .attr('x', 100)
+            .attr('y', 100)
+            .attr("fill", "black")
+            .attr("size", 200)
+            .text(this.props.index)
     }
 
     render() {
-        // setting the viewBox to 600x600 for now. It's big enough to show the details of a grade circle,
-        // while displaying K and 1st Grade side-by-side on a laptop.
-        return <svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
-            <g className="grade" id={`grade-${this.props.index}`} ref={node => this.node = node}></g>
-        </svg>
+        return (
+            <g transform={`translate(${this.props.transformX},${this.props.transformY})`} className="grade" id={`grade-${this.props.index}`} ref={node => this.node = node}></g>
+        );
     }
 
 }
