@@ -1,4 +1,9 @@
-.container, .canvas {
-    height: 98vh;
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.canvas {
+    height: 97vh;
     width: 99vw;
 }
