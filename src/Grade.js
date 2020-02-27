@@ -55,7 +55,33 @@ export default class Grade extends React.Component {
             })
             .attr("cy", function (d) { return d.y; })
             .attr('r', d => d.r)
+            .attr("class", function (d) {
+                const genericClass = "node";
+                if (d.depth === 0) {
+                    return genericClass + " node--root";
+                }
+                if (d.depth === 2) {
+                    if (!d.data.data.clusterType) throw new Error("this level needs a cluster type.");
+                    return genericClass + " node--cluster-" + d.data.data.clusterType;
+                }
+                if (!d.children) {
+                    return genericClass + " node--leaf";
+                }
+                return genericClass;
+            })
             .style("fill", function (d) { return d.children ? color(d.depth) : null; });
+
+        select(node)
+            .selectAll("g")
+            .data(nodes).append("text")
+            .attr("text-anchor", "middle")
+            .attr("x", function (d) { return d.x; })
+            .attr("y", function (d) { return d.y; })
+            .attr("dy", "0.3em")
+            .attr("class", "label")
+            .text((d) => {
+                return d.children ? "" : d.data.data.codeTrimmed
+            });
     }
 
     render() {

@@ -1,5 +1,5 @@
 import React from "react";
-import data from "./ccssm-flare.json";
+import data from "./data/ccssm-flare.json";
 
 // This top-level d3 import is for zoom, which for some reason doesn't work as an import on it's own. 
 // TODO (ann): Figure this out later!
