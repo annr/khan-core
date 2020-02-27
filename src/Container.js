@@ -1,9 +1,9 @@
 import React from "react";
+import data from "./ccssm-flare.json";
 
-// This is for zoom, which for some reason doesn't work as an import on it's own. 
+// This top-level d3 import is for zoom, which for some reason doesn't work as an import on it's own. 
 // TODO (ann): Figure this out later!
 import * as d3 from "d3";
-import data from "./data/ccssm-flare.json";
 import { select, event } from 'd3-selection';
 import Grade from "./Grade";
 
@@ -14,7 +14,7 @@ export default class Container extends React.Component {
     constructor(props) {
         super(props);
         this.createZoom = this.createZoom.bind(this);
-        this.handleResize = this.handleResize.bind(this)
+        // this.handleResize = this.handleResize.bind(this)
         this.state = { width: window.innerWidth };
     };
 
@@ -27,9 +27,9 @@ export default class Container extends React.Component {
         window.removeEventListener('resize', this.handleResize);
     }
 
-    handleResize() {
-        this.setState({ width: window.innerWidth });
-    }
+    // handleResize() {
+    //     //this.setState({ width: window.innerWidth });
+    // }
 
     componentDidUpdate() {
         this.createZoom();

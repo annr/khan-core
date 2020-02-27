@@ -17,18 +17,18 @@ export function getStandardXTranslate(i, gradeWidth, margin) {
 // and totalStepHeight
 export function getStandardYTranslate(i, gradeWidth, margin, totalStepHeight) {
     const totalVerticalMargin = (Math.floor(i / 2) + 1) * margin;
-    return (Math.floor(i / 2) * gradeWidth) + totalVerticalMargin + totalStepHeight;
+    return (Math.floor(i / 2) * (gradeWidth - 12)) + totalVerticalMargin + totalStepHeight;
 }
 
 // I'm sending back transforms and width together in an array martix. 
 // This means width is repeated a bunch of times in that matrix. Some
 // people would have a problem with this but Dodo don't care. 
 export function getTransformsAndWidths(gradesLength, windowWidth) {
-    const margin = 20;
+    const margin = 5;
     // grade groups are square
     const gradeWidth = getGradeWidth(windowWidth, margin);
     const transformsAndWidth = [];
-    const stepHeight = 124;
+    const stepHeight = 48;
     let totalStepHeight = 0;
     for (let i = 0; i < gradesLength; i++) {
         let x = getStandardXTranslate(i, gradeWidth, margin);

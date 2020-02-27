@@ -29,7 +29,7 @@ test("getStandardYTranslate returns (gradeWidth * rows) + totalVerticalHeight an
     // (Math.floor(i / 2) * gradeWidth) + totalVerticalMargin + totalStepHeight;
     const margin = 30;
     const gradeWidth = 560;
-    const stepHeight = 124;
+    const stepHeight = 12;
     let totalStepHeight = 0;
     // first row
     let i = 0;
@@ -52,7 +52,7 @@ test("getStandardYTranslate returns (gradeWidth * rows) + totalVerticalHeight an
     if (i % 2 !== 0) {
         totalStepHeight += stepHeight;
     }
-    const expectedY = gradeWidth + ((Math.floor(i / 2) + 1) * margin) + totalStepHeight;
+    const expectedY = (gradeWidth - stepHeight) + ((Math.floor(i / 2) + 1) * margin) + totalStepHeight;
     const ySecondRow = getStandardYTranslate(i, gradeWidth, margin, totalStepHeight);
     expect(ySecondRow).toBe(expectedY);
 });
