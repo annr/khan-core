@@ -1,5 +1,9 @@
 import React from "react";
 import { select } from 'd3-selection';
+import { pack } from "d3-hierarchy";
+import { hierarchy } from "d3-hierarchy";
+import { scaleLinear } from "d3-scale";
+import { interpolateHcl } from "d3-interpolate";
 
 import "./Grade.css";
 
@@ -20,34 +24,38 @@ export default class Grade extends React.Component {
     }
     createGrade() {
         const node = this.node;
-        //const data = this.props.data;
+        const root = hierarchy(this.props.data)
+            .sum(function (d) { return 1; })
+            .sort(function (a, b) { return b.value - a.value; });
+
+        const packLayout = pack();
+
+        packLayout.size([this.props.gWidth, this.props.gWidth])
+            .padding(5);
+
+        packLayout(root);
+        const nodes = root.descendants();
+
+        var color = scaleLinear()
+            .domain([-1, 5])
+            .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+            .interpolate(interpolateHcl);
 
         select(node)
-            .selectAll("rect")
-            .data([this.props.index])
-            .enter()
-            .append("rect")
-            .attr("x", 0)
-            .attr("y", 0)
-            // .attr('width', this.props.gWidth)
-            // .attr('height', this.props.gWidth)
-            .attr('width', this.props.gWidth)
-            .attr('height', this.props.gWidth)
-            .attr("fill", "pink")
-            .attr("stroke", "green")
-            .attr("stroke-width", 2)
+            .selectAll("g")
+            .data(nodes)
+            .enter().append("g");
 
         select(node)
-            .selectAll("text")
-            .data([this.props.index])
-            .enter()
-            .append("text")
-            .attr("text-anchor", "middle")
-            .attr('x', 100)
-            .attr('y', 100)
-            .attr("fill", "black")
-            .attr("size", 200)
-            .text(this.props.index)
+            .selectAll("g")
+            .data(nodes)
+            .append('circle')
+            .attr("cx", function (d) {
+                return d.x;
+            })
+            .attr("cy", function (d) { return d.y; })
+            .attr('r', d => d.r)
+            .style("fill", function (d) { return d.children ? color(d.depth) : null; });
     }
 
     render() {
