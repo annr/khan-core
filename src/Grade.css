@@ -20,6 +20,16 @@
 }
 
 circle {
-    opacity: 0.2;
+    opacity: 0.3;
+}
+
+.circlePath {
+    fill: none;
+}
+
+.gradeHeading {
+    fill: rgb(121, 195, 201);
+    font-size: 24pt;
+    /* fill: #8ecdd4; */
 }
 

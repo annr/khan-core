@@ -82,6 +82,54 @@ export default class Grade extends React.Component {
             .text((d) => {
                 return d.children ? "" : d.data.data.codeTrimmed
             });
+
+        this.addCirclePathGradeName(nodes);
+    }
+
+    addCirclePathGradeName(nodes) {
+        const node = this.node;
+        const positionTopRightQuadrant = "34%";
+        select(node)
+            .selectAll("g")
+            .data(nodes).append("path")
+            .attr("d", function (d) {
+                if (d.depth === 0) {
+                    const x = d.x - d.r;
+                    return `M ${x},${d.y} a ${d.r},${d.r} 0 1,1 0,1 z`;
+                };
+            })
+            .attr("id", function (d) {
+                if (d.depth === 0) {
+                    return `heading-for-${d.data.id}`;
+                }
+            })
+            .attr("class", (d) => {
+                if (d.depth === 0) {
+                    return "circlePath";
+                }
+            });
+
+        const wrappingText = select(node)
+            .selectAll("g")
+            .data(nodes).append("text")
+            .attr("class", (d) => {
+                if (d.depth === 0) return "gradeHeading";
+            })
+            .attr("id", (d) => {
+                if (d.depth === 0) return `heading-${d.data.id}`;
+            });
+
+        wrappingText
+            .append("textPath")
+            .attr("startOffset", (d) => {
+                if (d.depth === 0) return positionTopRightQuadrant;
+            })
+            .attr("xlink:xlink:href", (d) => {
+                if (d.depth === 0) return `#heading-for-${d.data.id}`;
+            })
+            .text((d) => {
+                if (d.depth === 0) return d.data.name;
+            });
     }
 
     render() {
