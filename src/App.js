@@ -1,11 +1,14 @@
 import React from 'react';
 import Container from "./Container"
+import SidePanel from "./SidePanel"
+
 class App extends React.Component {
 
   render() {
     return (
       <React.Fragment>
         {/* <h1>Khan Academy Common Core</h1> */}
+        <SidePanel />
         <Container />
         <footer>
           <a

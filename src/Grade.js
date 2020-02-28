@@ -121,6 +121,7 @@ export default class Grade extends React.Component {
 
         wrappingText
             .append("textPath")
+            .attr("role", "heading")
             .attr("startOffset", (d) => {
                 if (d.depth === 0) return positionTopRightQuadrant;
             })
