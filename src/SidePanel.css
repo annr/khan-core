@@ -8,6 +8,7 @@
     height: 30vh;
     box-shadow: 3px 1px 3px 1px rgba(0, 0, 0, .2);
     padding: 24px;
+    overflow: hidden;
     border-radius: 0 0 10px;
 }
 

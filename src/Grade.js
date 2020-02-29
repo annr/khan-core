@@ -31,7 +31,7 @@ export default class Grade extends React.Component {
         const packLayout = pack();
 
         packLayout.size([this.props.gWidth, this.props.gWidth])
-            .padding(5);
+            .padding(15);
 
         packLayout(root);
         const nodes = root.descendants();

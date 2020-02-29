@@ -1,0 +1,15 @@
+.tooltip {
+    position: absolute;
+    width: 30%;
+    max-width: 260px;
+    margin-top: -20px;
+    pointer-events: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #efefef;
+    box-shadow: 3px 1px 3px 1px rgba(0, 0, 0, .2);
+  }
+  
+  sup {
+    line-height: 100%;
+  }

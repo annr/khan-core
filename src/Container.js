@@ -6,6 +6,7 @@ import data from "./data/ccssm-flare.json";
 import * as d3 from "d3";
 import { select, event } from 'd3-selection';
 import Grade from "./Grade";
+import Tooltips from "./Tooltips";
 
 import "./Container.css";
 import { getTransformsAndWidths } from "./responsiveLayout.js";
@@ -49,7 +50,7 @@ export default class Container extends React.Component {
         canvasNode.call(zoom);
 
         function zoomed() {
-            gradesNode.attr("transform", event.transform)
+            gradesNode.attr("transform", event.transform);
         }
     }
 
@@ -62,7 +63,7 @@ export default class Container extends React.Component {
 
     renderGrades() {
         const width = this.state.width;
-        const gradeName = ['Kindergarten', '1st Grade', '2nd Grade', '3rd Grade'].concat([4, 5, 6, 7, 8].map((n) => n + 'th Grade'));
+        const gradeNames = ['Kindergarten', '1st Grade', '2nd Grade', '3rd Grade'].concat([4, 5, 6, 7, 8].map((n) => n + 'th Grade'));
 
         // until we know the window width, don't add anything.
         if (width === 0) {
@@ -70,9 +71,9 @@ export default class Container extends React.Component {
         }
 
         // for now, we are figuring out how to lay out the grades based on window width.
-        const layout = getTransformsAndWidths(gradeName.length, width);
+        const layout = getTransformsAndWidths(gradeNames.length, width);
 
-        const grades = gradeName.map((d, i) => {
+        const grades = gradeNames.map((d, i) => {
             return this.renderGrade(i, layout[i]);
         });
 
@@ -81,13 +82,16 @@ export default class Container extends React.Component {
 
     render() {
         return (
-            <div className="container" ref={container => this.container = container} >
-                <svg className="canvas" ref={canvas => this.canvas = canvas}>
-                    <g className="grades" ref={grades => this.grades = grades}>
-                        {this.renderGrades()}
-                    </g>
-                </svg>
-            </div>
+            <React.Fragment>
+                <div className="container" ref={container => this.container = container} >
+                    <svg className="canvas" ref={canvas => this.canvas = canvas}>
+                        <g className="grades" ref={grades => this.grades = grades}>
+                            {this.renderGrades()}
+                        </g>
+                    </svg>
+                </div>
+                <Tooltips grades={[...Array(9).keys()]} />
+            </React.Fragment>
         );
     }
 }
