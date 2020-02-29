@@ -6,6 +6,7 @@
 .label {
     text-anchor: middle;
     pointer-events: none;
+    font-size: 0.8em;
 }
 
 .node--leaf:hover {
@@ -15,7 +16,6 @@
 
 .node--leaf {
     fill: white;
-    font-size: 5pt;
     opacity: 0.8;
 }
 
@@ -29,7 +29,6 @@ circle {
 
 .gradeHeading {
     fill: rgb(121, 195, 201);
-    font-size: 24pt;
+    font-size: 2.5em;
     /* fill: #8ecdd4; */
 }
-

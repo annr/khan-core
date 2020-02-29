@@ -1,5 +1,5 @@
 import React from "react";
-import { select } from 'd3-selection';
+import { select, event } from 'd3-selection';
 import { pack } from "d3-hierarchy";
 import { hierarchy } from "d3-hierarchy";
 import { scaleLinear } from "d3-scale";
@@ -31,7 +31,7 @@ export default class Grade extends React.Component {
         const packLayout = pack();
 
         packLayout.size([this.props.gWidth, this.props.gWidth])
-            .padding(15);
+            .padding(10);
 
         packLayout(root);
         const nodes = root.descendants();
@@ -61,13 +61,24 @@ export default class Grade extends React.Component {
                     return genericClass + " node--root";
                 }
                 if (d.depth === 2) {
-                    if (!d.data.data.clusterType) throw new Error("this level needs a cluster type.");
-                    return genericClass + " node--cluster-" + d.data.data.clusterType;
+                    if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
+                    return `${genericClass} node--cluster-${d.data.data.clusterType}`;
                 }
                 if (!d.children) {
-                    return genericClass + " node--leaf";
+                    return `${genericClass} node--leaf`;
                 }
                 return genericClass;
+            })
+            .on("mouseover", function (d, event) {
+                select(`#tooltip-${d.data.id}`).style("display", "inline");
+            })
+            .on("mousemove", function (d) {
+                select(`#tooltip-${d.data.id}`)
+                    .style("top", `${(event.pageY + 16)}px`)
+                    .style("left", `${(event.pageX + 16)}px`);
+            })
+            .on("mouseout", function (d) {
+                select(`#tooltip-${d.data.id}`).style("display", "none");
             })
             .style("fill", function (d) { return d.children ? color(d.depth) : null; });
 
