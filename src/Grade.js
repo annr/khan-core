@@ -95,6 +95,27 @@ export default class Grade extends React.Component {
             });
 
         this.addCirclePathGradeName(nodes);
+        this.addTooltips(nodes);
+    }
+
+    addTooltips(nodes) {
+        // This is a hack!!! I need to extract the creation of tooltips.
+        const gradeTooltipContainer = select(`#tooltips-grade-${this.props.index}`);
+        gradeTooltipContainer.selectAll("div")
+            .data(nodes)
+            .enter()
+            .append("div")
+            .style("display", "none")
+            .attr("id", (d) => `tooltip-${d.data.id}`)
+            .attr("class", "tooltip")
+            .html((d) => {
+                if (d.data.name !== null) {
+                    return `<strong>${d.data.name}</strong>`;
+                }
+                if (d.data && d.data.data) {
+                    return d.data.data.description;
+                }
+            });
     }
 
     addCirclePathGradeName(nodes) {
