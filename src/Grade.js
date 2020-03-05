@@ -31,7 +31,7 @@ export default class Grade extends React.Component {
         const packLayout = pack();
 
         packLayout.size([this.props.gWidth, this.props.gWidth])
-            .padding(10);
+            .padding(12);
 
         packLayout(root);
         const nodes = root.descendants();
@@ -99,7 +99,7 @@ export default class Grade extends React.Component {
     }
 
     addTooltips(nodes) {
-        // This is a hack!!! I need to extract the creation of tooltips.
+        // I should extract the creation of tooltips.
         const gradeTooltipContainer = select(`#tooltips-grade-${this.props.index}`);
         gradeTooltipContainer.selectAll("div")
             .data(nodes)

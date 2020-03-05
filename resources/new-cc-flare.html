@@ -120,6 +120,7 @@
         let standards_by_cluster = [];
 
         // create all the standards by cluster arrays
+        // these are receptacles
         for (c in clusters) {
             const clusterId = parseInt(clusters[c].id, 10);
             if (standards_by_cluster[clusterId] === undefined) {
@@ -127,15 +128,92 @@
             }
         }
 
+        let standard_topics_by_standard = [];
+
+        function getStandardCodeFromStandardTopicCode(code) {
+            const splitCode = code.split(".");
+            splitCode.pop();
+            return splitCode.join(".");
+        }
+
+        function isStandardTopic(code) {
+            const splitCode = code.split(".");
+            const lastElement = splitCode.pop();
+            if (/[a-g]/.test(lastElement)) {
+                return true;
+            }
+            return false;
+        }
+
+        for (s in standards) {
+            // first identify standards that have standard topics
+            const code = standardCode(parseInt(s, 10), true);
+
+            if (isStandardTopic(code)) {
+                const splitCode = code.split(".");
+                const lastElement = splitCode.pop();
+                // create empty array for standard with standard topics
+                if (!standard_topics_by_standard[splitCode.join(".")]) {
+                    standard_topics_by_standard[splitCode.join(".")] = [];
+                }
+            }
+        }
+
+        // then make sure all of the lower level topics are populated
         for (s in standards) {
             const cluster = standards[s].ccmathcluster_id;
 
-            //make sure not null and that the cluseter has been added.
+            // make sure not null and that the cluster has been added
+
+            // we have to first create the standardTopics elem
+            // then either add standard with the null child or the children we've made
             if (standards[s]) {
-                if (standards_by_cluster[cluster]) {
-                    standards_by_cluster[cluster].push(createFlareObj(standards[s].id, null, [], { description: standards[s].desc, codeTrimmed: standardCode(parseInt(s, 10), false), code: standardCode(parseInt(s, 10), true) }));
+                const code = standardCode(parseInt(s, 10), true);
+                // in the case of a standardTopic, we can expect it's parent to exist, and then we
+                // just need to push the child onto the parent.
+
+                if (isStandardTopic(code)) {
+                    const parentCode = getStandardCodeFromStandardTopicCode(code);
+                    standard_topics_by_standard[parentCode].push(
+                        createFlareObj(
+                            standards[s].id,
+                            null,
+                            [],
+                            {
+                                description: standards[s].desc.replace("<p>&nbsp;</p>", ""),
+                                codeTrimmed: standardCode(parseInt(s, 10), false),
+                                code: standardCode(parseInt(s, 10), true)
+                            }
+                        )
+                    );
                 }
-                // old
+            }
+        }
+        // end looping through for standard topics
+
+        for (s in standards) {
+            const cluster = standards[s].ccmathcluster_id;
+            const code = standardCode(parseInt(s, 10), true);
+            if (standards[s] && !isStandardTopic(code)) {
+                let topics = [];
+                //const topics = standard_topics_by_standard[code] ? standard_topics_by_standard[code] : null;
+                if (standard_topics_by_standard[code] && standard_topics_by_standard[code].length > 0) {
+                    topics = standard_topics_by_standard[code];
+                }
+                if (standards_by_cluster[cluster]) {
+                    standards_by_cluster[cluster].push(
+                        createFlareObj(
+                            standards[s].id,
+                            null,
+                            topics,
+                            {
+                                description: standards[s].desc.replace("<p>&nbsp;</p>", ""),
+                                codeTrimmed: standardCode(parseInt(s, 10), false),
+                                code: standardCode(parseInt(s, 10), true)
+                            }
+                        )
+                    );
+                }
                 new_standards.push({
                     "id": s,
                     "ccmathcluster_id": standards[s].ccmathcluster_id,
@@ -148,13 +226,22 @@
             }
         }
 
+
         // now fill those arrays
         for (c in clusters) {
             const domain = parseInt(clusters[c].ccmathdomain_id, 10);
             const clusterId = parseInt(clusters[c].id, 10);
             if (clusters[c]) {
                 if (clusters_by_domain[domain]) {
-                    clusters_by_domain[domain].push(createFlareObj(clusters[c].id, clusters[c].name, standards_by_cluster[clusterId], { clusterType: clusterType(clusters[c].msa) }));
+                    clusters_by_domain[domain].push(createFlareObj(
+                        clusters[c].id,
+                        clusters[c].name,
+                        standards_by_cluster[clusterId],
+                        {
+                            clusterType: clusterType(clusters[c].msa)
+                        }
+                    )
+                    );
                 }
                 // old
                 new_clusters.push(clusters[c]);
@@ -172,6 +259,8 @@
                 }
                 const domainId = parseInt(domains[d].id);
                 const convertedGrade = domains[d].grade === "K" ? 0 : parseInt(domains[d].grade, 10);
+
+                //
 
                 domains_by_grade[convertedGrade].push(createFlareObj(domainId, domains[d].name, clusters_by_domain[domainId]));
                 // old
@@ -192,15 +281,26 @@
 
         // massive loop
         for (let i = 0; i < grades.length; i++) {
+
+            // overridded grade ids:
+            overriddenGradeIds = [1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008];
+
             // build domains for each grade
-            flare_grades.push(createFlareObj(grades[i], gradeNames[i], domains_by_grade[i]));
+            flare_grades.push(createFlareObj(overriddenGradeIds[i], gradeNames[i], domains_by_grade[i]));
         }
 
-
+        // copy this!
         flare.standards.children = flare_grades;
+        // at the moment, only the children are copied, so it's an array of grades
+        // copy(flare.standards.children)
+        // copy(flare);
+
+        // THEN there are at least two things you need to do with that data
+        // change the grade ids to "1000"... So kindergarten is id: 1000, "1st grade" is id: 1001...
+        // then also the descriptions need <p>&nbsp;</p>'s removed
 
 
-        // then do this in the console:
+        // this has other stuff?
         // copy(JSON.stringify(new_cc))
 
         // standards.map((s) => {
