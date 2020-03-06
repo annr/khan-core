@@ -11,13 +11,15 @@ class App extends React.Component {
         <SidePanel />
         <Container />
         <footer>
+          <span>Made with 💖 for teachers and learners.</span>
           <a
+            style={{ "float": "right" }}
             className="project-link"
             href="https://github.com/annr/khan-core"
             target="_blank"
             rel="noopener noreferrer"
           >
-            View this project on GitHub
+            GitHub project
         </a>
         </footer>
       </React.Fragment>

@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders github link', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/View this project on GitHub/i);
+  const linkElement = getByText(/GitHub project/i);
   expect(linkElement).toBeInTheDocument();
 });
