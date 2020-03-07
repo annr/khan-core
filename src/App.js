@@ -10,10 +10,9 @@ class App extends React.Component {
         {/* <h1>Khan Academy Common Core</h1> */}
         <Container />
         <footer>
-          <span>Made with 💖 for teachers and learners.</span>
+          <span>Made with <span role="image" aria-label="love">💖</span> for teachers and learners.</span>
           <a
-            style={{ "float": "right" }}
-            className="project-link"
+            className="github-link"
             href="https://github.com/annr/khan-core"
             target="_blank"
             rel="noopener noreferrer"
