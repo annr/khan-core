@@ -1,7 +1,6 @@
 import React from 'react';
 import Container from "./Container"
 import SidePanel from './SidePanel';
-//import SidePanel from "./SidePanel"
 
 class App extends React.Component {
 

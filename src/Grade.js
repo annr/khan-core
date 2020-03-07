@@ -36,6 +36,12 @@ export default class Grade extends React.Component {
         packLayout(root);
         const nodes = root.descendants();
 
+        const updateSidePanel = function (d) {
+            // start simple by updating heading
+            const heading = document.getElementById("heading");
+            heading.textContent = d.data.data.code;
+        }
+
         var color = scaleLinear()
             .domain([-1, 5])
             .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
@@ -71,6 +77,11 @@ export default class Grade extends React.Component {
                     return `${genericClass} node--leaf`;
                 }
                 return genericClass;
+            })
+            .on("click", function (d, event) {
+                if (!d.children) {
+                    updateSidePanel(d);
+                }
             })
             .on("mouseover", function (d, event) {
                 select(`#tooltip-${d.data.id}`).style("display", "inline");

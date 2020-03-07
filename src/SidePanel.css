@@ -2,6 +2,7 @@
 .side-panel {
     background-color:#fff;
     position: absolute;
+    top: 0;
     width: 20%;
     max-width: 350px;
     min-width: 200px;
@@ -29,8 +30,7 @@ gradient.
     left: 0;
     width: 19%;
     max-width: 345px;
-    min-width: 200px;
-    max-width: 350px;
+    min-width: 190px;
     height: 40px;
     background-image: linear-gradient(to bottom, transparent, white 80%);
 }
