@@ -1,5 +1,6 @@
 import React from 'react';
 import Container from "./Container"
+import SidePanel from './SidePanel';
 //import SidePanel from "./SidePanel"
 
 class App extends React.Component {
@@ -8,6 +9,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         {/* <h1>Khan Academy Common Core</h1> */}
+        <SidePanel />
         <Container />
         <footer>
           <span>Made with <span role="image" aria-label="love">💖</span> for teachers and learners.</span>

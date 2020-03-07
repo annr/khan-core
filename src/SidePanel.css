@@ -4,12 +4,35 @@
     position: absolute;
     width: 20%;
     max-width: 350px;
-    min-width: 140px;
-    height: 30vh;
+    min-width: 200px;
+    height: 420px;
+    padding: 20px;
     box-shadow: 3px 1px 3px 1px rgba(0, 0, 0, .2);
-    padding: 24px;
-    overflow: hidden;
+    overflow: scroll;
     border-radius: 0 0 10px;
+}
+
+/*
+This is a hack. Maybe after I retire I will have the time to figure out a better
+way to fix a gradient image on top of text. I know it's going to cause trouble,
+but I'll probably move away from this type of sidebar and have one that stretches 100%
+
+What this means now is that the styles that change above also have to change below.
+
+Also note that with this solution one can't scroll if their cursor is hovered over the
+gradient.
+*/
+.fixed-reveal-gradient {
+    position: absolute;
+    padding: 20px;
+    top: 380px;
+    left: 0;
+    width: 19%;
+    max-width: 345px;
+    min-width: 200px;
+    max-width: 350px;
+    height: 40px;
+    background-image: linear-gradient(to bottom, transparent, white 80%);
 }
 
 .hide-show-side-panel {
