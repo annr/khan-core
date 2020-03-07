@@ -37,9 +37,35 @@ export default class Grade extends React.Component {
         const nodes = root.descendants();
 
         const updateSidePanel = function (d) {
-            // start simple by updating heading
+            // if the node is a bullet point of a standard (standard topic),
+            // then you want to show the cluster and the standard title
+            // and highlight the specific selected topic
+            // let topic;
+            let node = d;
+            if (d.depth > 3) {
+                node = d.parent;
+                // topic = d;
+            }
+
+            // get all the elements from side panel that need to be updated.
+            // this is old school!
+            const cluster = document.getElementById("cluster");
+            const clusterType = document.getElementById("clusterType");
+            const clusterDescription = document.getElementById("clusterDescription");
             const heading = document.getElementById("heading");
-            heading.textContent = d.data.data.code;
+            const subheading = document.getElementById("subheading");
+            const description = document.getElementById("description");
+
+            // capitalize first letter of clusterType
+            const type = node.parent.data.data.clusterType;
+            const typeStringPrepared = type.charAt(0).toUpperCase() + type.substring(1);
+
+            clusterType.textContent = `${typeStringPrepared} cluster`;
+            clusterDescription.innerHTML = node.parent.data.name;
+            cluster.style.display = "block";
+            subheading.style.display = "none";
+            heading.textContent = node.data.data.code;
+            description.innerHTML = node.data.data.description;
         }
 
         var color = scaleLinear()
