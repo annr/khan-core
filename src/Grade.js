@@ -40,11 +40,11 @@ export default class Grade extends React.Component {
             // if the node is a bullet point of a standard (standard topic),
             // then you want to show the cluster and the standard title
             // and highlight the specific selected topic
-            // let topic;
+            let topic;
             let node = d;
             if (d.depth > 3) {
                 node = d.parent;
-                // topic = d;
+                topic = d;
             }
 
             // get all the elements from side panel that need to be updated.
@@ -55,6 +55,8 @@ export default class Grade extends React.Component {
             const heading = document.getElementById("heading");
             const subheading = document.getElementById("subheading");
             const description = document.getElementById("description");
+            const topics = document.createElement('dl');
+            topics.id = "topics";
 
             // capitalize first letter of clusterType
             const type = node.parent.data.data.clusterType;
@@ -65,7 +67,29 @@ export default class Grade extends React.Component {
             cluster.style.display = "block";
             subheading.style.display = "none";
             heading.textContent = node.data.data.code;
+
+            // if the standard has children, show those as bullet points below the desc
+            if (d.depth > 3) {
+                node.children.forEach(topic => {
+                    const code = topic.data.data.code;
+                    const topicLetter = code.charAt(code.length - 1).toUpperCase();
+                    const div = document.createElement('div');
+                    if (topic.data.id === d.data.id) {
+                        div.className = "selectedTopic";
+                    }
+                    const dt = document.createElement('dt');
+                    dt.textContent = topicLetter;
+                    const dd = document.createElement('dd');
+                    dd.textContent = topic.data.data.description;
+                    div.appendChild(dt);
+                    div.appendChild(dd);
+                    topics.appendChild(div);
+                });
+            }
+
             description.innerHTML = node.data.data.description;
+            description.appendChild(topics);
+
         }
 
         var color = scaleLinear()

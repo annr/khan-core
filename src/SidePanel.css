@@ -3,10 +3,10 @@
     background-color:#fff;
     position: absolute;
     top: 0;
-    width: 20%;
-    max-width: 350px;
-    min-width: 200px;
-    height: 420px;
+    width: 25%;
+    max-width: 440px;
+    min-width: 260px;
+    height: 520px;
     padding: 20px;
     box-shadow: 3px 1px 3px 1px rgba(0, 0, 0, .2);
     overflow: scroll;
@@ -26,11 +26,11 @@ gradient.
 .fixed-reveal-gradient {
     position: absolute;
     padding: 20px;
-    top: 380px;
+    top: 480px;
     left: 0;
-    width: 19%;
-    max-width: 345px;
-    min-width: 190px;
+    width: 24%;
+    max-width: 390px;
+    min-width: 210px;
     height: 40px;
     background-image: linear-gradient(to bottom, transparent, white 80%);
 }

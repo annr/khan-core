@@ -15,7 +15,6 @@ class SidePanelContent extends React.Component {
                 <div id="description">
                     <p>Select a standard to show details and relationships.</p>
                     <p>Panning and zooming are enabled.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
                 {/* <button className="hide-show-side-panel">
                     Hide Panel

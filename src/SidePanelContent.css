@@ -1,3 +1,7 @@
+#description{
+  font-size: smaller;
+}
+
 #cluster {
     display: none;
     background-color: rgb(235, 235, 235);
@@ -16,3 +20,23 @@
     margin-bottom: 0;
     margin-top: 8px;
 }
+
+dl#topics div {
+    margin-bottom: 8px;
+    padding: 8px;
+}
+
+dl#topics dt {
+    font-weight: bold;
+}
+dl#topics dd {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+dl#topics div.selectedTopic {
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+
