@@ -64,6 +64,9 @@ export default class Grade extends React.Component {
                     if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
                     return `${genericClass} node--cluster-${d.data.data.clusterType}`;
                 }
+                if (d.depth === 3 && d.children) {
+                    return `${genericClass} node--has-topics`;
+                }
                 if (!d.children) {
                     return `${genericClass} node--leaf`;
                 }
@@ -80,7 +83,29 @@ export default class Grade extends React.Component {
             .on("mouseout", function (d) {
                 select(`#tooltip-${d.data.id}`).style("display", "none");
             })
-            .style("fill", function (d) { return d.children ? color(d.depth) : null; });
+            .style("fill", function (d) {
+                if (d.depth === 2) {
+                    if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
+                    return `url(#${d.data.data.clusterType})`;
+                }
+                // Hard-code (not ideal) the bgcolor for grouped standards --
+                // standards that have "standard topics" or bullet points
+                // Ex. K.CC.4 has K.CC.4.a, K.CC.4.b, and K.CC.4.c
+                if (d.depth === 3 && d.children) {
+                    return "#92BFCC";
+                }
+                return d.children ? color(d.depth) : null;
+            })
+            .attr("stroke-width", function (d) {
+                if (d.depth === 2) {
+                    return 0.5;
+                }
+            })
+            .attr("stroke", function (d) {
+                if (d.depth === 2) {
+                    return "hsl(228,30%,40%)";
+                }
+            });
 
         select(node)
             .selectAll("g")
