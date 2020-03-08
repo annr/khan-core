@@ -1,7 +1,3 @@
-#description{
-  font-size: smaller;
-}
-
 #cluster {
     display: none;
     background-color: rgb(235, 235, 235);
@@ -24,6 +20,7 @@
 dl#topics div {
     margin-bottom: 8px;
     padding: 8px;
+    font-size: smaller;
 }
 
 dl#topics dt {

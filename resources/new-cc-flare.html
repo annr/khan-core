@@ -1,22 +1,10 @@
-<!-- Code from d3-graph-gallery.com -->
 <!DOCTYPE html>
 <meta charset="utf-8">
 
 <head>
-    <script src="./lodash.js"></script>
     <script src="https://achievethecore.org/standards-admin/json.php"></script>
+    <script src="./khan.js"></script>
 </head>
-<!--
-
-    {
-    "standards": {
-        "id": "K",
-        "name": "Kindergarten",
-        "children": [
-            {
-                "id": "K.CC",
-                "name": "Counting 
--->
 
 <body>
     <!-- Create a container where all grades will be rendered -->
@@ -26,7 +14,7 @@
             var s = window.cc.standards[sid];
             var c = window.cc.clusters[s.ccmathcluster_id];
             var d = window.cc.domains[c.ccmathdomain_id];
-            return [domainCode(d, withGrade), s.ordinal].join('.');
+            return [domainCode(d, withGrade), c.ordinal, s.ordinal].join('.');
         }
 
         function domainCode(d, withGrade) {
@@ -196,6 +184,26 @@
             const code = standardCode(parseInt(s, 10), true);
             if (standards[s] && !isStandardTopic(code)) {
                 let topics = [];
+
+                const khanAcademyContent = [];
+                for (j = 0; j < khan.length; j++) {
+                    // find the content that matches the code. could be multiple.
+                    const parsedKey = khan[j].Standard.substring("Math.CC.".length);
+                    if (parsedKey === code) {
+                        console.log('Found content for ' + code)
+                        khanAcademyContent.push({
+                            "name": khan[j]["Name of skill on Khan Academy"],
+                            "link": khan[j]["Link to skill"],
+                            "description": khan[j]["Description"],
+                            "area": khan[j]["Area"],
+                        });
+                    }
+                }
+
+                if (khanAcademyContent.length === 0) {
+                    console.log('could not find content for ' + code)
+                }
+
                 //const topics = standard_topics_by_standard[code] ? standard_topics_by_standard[code] : null;
                 if (standard_topics_by_standard[code] && standard_topics_by_standard[code].length > 0) {
                     topics = standard_topics_by_standard[code];
@@ -209,7 +217,8 @@
                             {
                                 description: standards[s].desc.replace("<p>&nbsp;</p>", ""),
                                 codeTrimmed: standardCode(parseInt(s, 10), false),
-                                code: standardCode(parseInt(s, 10), true)
+                                code: standardCode(parseInt(s, 10), true),
+                                khanAcademyContent
                             }
                         )
                     );

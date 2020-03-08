@@ -11,7 +11,7 @@ class SidePanelContent extends React.Component {
                     <div id="clusterDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</div>
                 </div>
                 <h1 id="heading">Khan Core</h1>
-                <h2 id="subheading" style={{ "fontWeight": "normal" }}>Find and fill math gaps, grades K through 8</h2>
+                <h2 id="subheading" style={{ "fontWeight": "normal" }}>Find and fill math gaps,<br />grades K through 8</h2>
                 <div id="description">
                     <p>Select a standard to show details and relationships.</p>
                     <p>Panning and zooming are enabled.</p>
