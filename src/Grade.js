@@ -40,11 +40,10 @@ export default class Grade extends React.Component {
             // if the node is a bullet point of a standard (standard topic),
             // then you want to show the cluster and the standard title
             // and highlight the specific selected topic
-            let topic;
             let node = d;
             if (d.depth > 3) {
                 node = d.parent;
-                topic = d;
+
             }
 
             // get all the elements from side panel that need to be updated.
@@ -56,6 +55,10 @@ export default class Grade extends React.Component {
             const subheading = document.getElementById("subheading");
             const description = document.getElementById("description");
             const topics = document.createElement('dl');
+
+            const khanContent = document.getElementById('khanContent');
+            const khanContentLinks = document.getElementById('khanContentLinks');
+            khanContentLinks.innerHTML = "";
             topics.id = "topics";
 
             // capitalize first letter of clusterType
@@ -87,9 +90,27 @@ export default class Grade extends React.Component {
                 });
             }
 
+            // add Khan Academy links
+            node.data.data.khanAcademyContent.forEach(link => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                const linkText = document.createTextNode(link["name"]);
+                a.appendChild(linkText);
+                a.title = link["name"];
+                a.href = link["link"];
+                a._target = "blank";
+                li.appendChild(a);
+                khanContentLinks.appendChild(li);
+            });
+
             description.innerHTML = node.data.data.description;
             description.appendChild(topics);
-
+            if (node.data.data.khanAcademyContent.length > 0) {
+                khanContent.appendChild(khanContentLinks);
+                khanContent.style.display = "block";
+            } else {
+                khanContent.style.display = "none";
+            }
         }
 
         var color = scaleLinear()

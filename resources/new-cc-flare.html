@@ -191,12 +191,16 @@
                     const parsedKey = khan[j].Standard.substring("Math.CC.".length);
                     if (parsedKey === code) {
                         console.log('Found content for ' + code)
-                        khanAcademyContent.push({
-                            "name": khan[j]["Name of skill on Khan Academy"],
-                            "link": khan[j]["Link to skill"],
-                            "description": khan[j]["Description"],
-                            "area": khan[j]["Area"],
-                        });
+                        if (khan[j]["Name of skill on Khan Academy"] !== "Coming soon") {
+                            khanAcademyContent.push({
+                                "name": khan[j]["Name of skill on Khan Academy"],
+                                "link": khan[j]["Link to skill"],
+                                "description": khan[j]["Description"],
+                                "area": khan[j]["Area"],
+                            });
+                        } else {
+                            console.log("found a coming soon");
+                        }
                     }
                 }
 

@@ -1,11 +1,12 @@
 import React from 'react';
+import logo from './khan-academy-logo.svg';
 import "./SidePanelContent.css";
 
 // This transforms from an intro to the app to the details card
 class SidePanelContent extends React.Component {
     render() {
         return (
-            <React.Fragment>
+            <div className="dynamic-content">
                 <div id="cluster">
                     <strong id="clusterType">Major cluster</strong><br />
                     <div id="clusterDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</div>
@@ -16,10 +17,14 @@ class SidePanelContent extends React.Component {
                     <p>Select a standard to show details and relationships.</p>
                     <p>Panning and zooming are enabled.</p>
                 </div>
+                <div id="khanContent">
+                    <img src={logo} alt="Khan Academy" width="192" height="42" />
+                    <ul id="khanContentLinks"></ul>
+                </div>
                 {/* <button className="hide-show-side-panel">
                     Hide Panel
                 </button> */}
-            </React.Fragment >
+            </div>
         );
     }
 }

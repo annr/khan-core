@@ -1,3 +1,7 @@
+.dynamic-content {
+    font-size: 0.9em;
+}
+
 #cluster {
     display: none;
     background-color: rgb(235, 235, 235);
@@ -5,6 +9,7 @@
     padding: 12px;
     line-height: 130%;
 }
+
 
 #clusterDescription {
     font-size: smaller;
@@ -36,4 +41,10 @@ dl#topics div.selectedTopic {
     border-radius: 4px;
 }
 
+#khanContent {
+    display: none;
+}
 
+#khanContentLinks {
+    margin-top: 0;
+}
