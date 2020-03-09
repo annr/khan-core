@@ -9,7 +9,7 @@
     height: 520px;
     padding: 20px;
     box-shadow: 3px 1px 3px 1px rgba(0, 0, 0, .2);
-    overflow: scroll;
+    overflow: auto;
     border-radius: 0 0 10px;
 }
 

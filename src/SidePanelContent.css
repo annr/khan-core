@@ -10,7 +10,6 @@
     line-height: 130%;
 }
 
-
 #clusterDescription {
     font-size: smaller;
     margin-bottom: 0;
@@ -47,4 +46,9 @@ dl#topics div.selectedTopic {
 
 #khanContentLinks {
     margin-top: 0;
+    padding-left: 8px;
+    list-style-type: none;
+}
+#khanContentLinks li {
+    margin-bottom: 8px;
 }

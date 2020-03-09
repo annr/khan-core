@@ -191,13 +191,26 @@
                     const parsedKey = khan[j].Standard.substring("Math.CC.".length);
                     if (parsedKey === code) {
                         console.log('Found content for ' + code)
-                        if (khan[j]["Name of skill on Khan Academy"] !== "Coming soon") {
-                            khanAcademyContent.push({
-                                "name": khan[j]["Name of skill on Khan Academy"],
-                                "link": khan[j]["Link to skill"],
-                                "description": khan[j]["Description"],
-                                "area": khan[j]["Area"],
+
+                        if (khan[j]["Name of skill on Khan Academy"].toLowerCase() !== "Coming soon".toLowerCase()) {
+                            // make sure there is no duplicate row
+                            let dupe = false;
+                            // loop through already added content and see if we would be adding any dupes
+                            khanAcademyContent.forEach(elem => {
+                                if (khan[j]["Name of skill on Khan Academy"] === elem["name"]) {
+                                    dupe = true;
+                                }
                             });
+                            if (!dupe) {
+                                khanAcademyContent.push({
+                                    "name": khan[j]["Name of skill on Khan Academy"],
+                                    "link": khan[j]["Link to skill"],
+                                    "description": khan[j]["Description"],
+                                    "area": khan[j]["Area"],
+                                });
+                            } else {
+                                console.log("found dupe");
+                            }
                         } else {
                             console.log("found a coming soon");
                         }

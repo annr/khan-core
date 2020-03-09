@@ -98,7 +98,7 @@ export default class Grade extends React.Component {
                 a.appendChild(linkText);
                 a.title = link["name"];
                 a.href = link["link"];
-                a._target = "blank";
+                a.target = "_blank";
                 li.appendChild(a);
                 khanContentLinks.appendChild(li);
             });
