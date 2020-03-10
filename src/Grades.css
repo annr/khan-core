@@ -1,0 +1,45 @@
+.grades {
+    background-color: pink;
+}
+
+.node {
+    cursor: pointer;
+}
+
+.label {
+    text-anchor: middle;
+    pointer-events: none;
+    font-size: 0.7em;
+}
+
+.node--leaf:hover {
+    stroke: #000 !important;
+    stroke-width: 1px !important;
+}
+
+.node--leaf {
+    fill: white;
+    opacity: 1;
+}
+
+circle {
+    opacity: 0.3;
+}
+
+.circlePath {
+    fill: none;
+}
+
+.gradeHeading {
+    fill: rgb(121, 195, 201);
+    font-size: 2.5em;
+    fill: #8ecdd4;
+}
+
+.node--cluster-major, .node--cluster-additional, .node--cluster-supporting {
+    opacity: 0.6;
+}
+
+.node--has-topics {
+    opacity: 0.75;
+}

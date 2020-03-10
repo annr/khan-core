@@ -1,11 +1,10 @@
 import React from "react";
-import data from "./data/ccssm-flare.json";
 
 // This top-level d3 import is for zoom, which for some reason doesn't work as an import on it's own. 
 // TODO (ann): Figure this out later!
 import * as d3 from "d3";
 import { select, event } from 'd3-selection';
-import Grade from "./Grade";
+import Grades from "./Grades";
 import Tooltips from "./Tooltips";
 
 import "./Container.css";
@@ -54,16 +53,9 @@ export default class Container extends React.Component {
         }
     }
 
-
-    renderGrade(i, layout) {
-        return (
-            <Grade index={i} data={data[i]} key={i} transformX={layout[0]} transformY={layout[1]} gWidth={layout[2]} />
-        );
-    }
-
     renderGrades() {
         const width = this.state.width;
-        const gradeNames = ['Kindergarten', '1st Grade', '2nd Grade', '3rd Grade'].concat([4, 5, 6, 7, 8].map((n) => n + 'th Grade'));
+        const gradeCount = 9; // show grades K - 8 for now.
 
         // until we know the window width, don't add anything.
         if (width === 0) {
@@ -71,13 +63,9 @@ export default class Container extends React.Component {
         }
 
         // for now, we are figuring out how to lay out the grades based on window width.
-        const layout = getTransformsAndWidths(gradeNames.length, width);
+        const layouts = getTransformsAndWidths(gradeCount, width);
 
-        const grades = gradeNames.map((d, i) => {
-            return this.renderGrade(i, layout[i]);
-        });
-
-        return grades;
+        return <Grades layouts={layouts} />;
     }
 
     render() {
