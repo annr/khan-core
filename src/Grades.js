@@ -1,5 +1,5 @@
 import React from "react";
-import { select, selectAll, event } from 'd3-selection';
+import { select, event } from 'd3-selection';
 import { pack } from "d3-hierarchy";
 import { hierarchy } from "d3-hierarchy";
 import { scaleLinear } from "d3-scale";
@@ -8,7 +8,9 @@ import { interpolateHcl } from "d3-interpolate";
 import data from "./data/ccssm-flare.json";
 import cc from "./data/cc.json";
 
-import updateSidePanel from "./update-side-panel"
+import updateSidePanel from "./update-side-panel";
+import highlightConnected from "./highlight-connected";
+
 import "./Grades.css";
 
 // Used the advice from this article to set up a d3 + React app:
@@ -18,18 +20,6 @@ import "./Grades.css";
 // we build them manually here as a hack
 const CC_CONNECTION_NODES = [];
 const CC_LINKS = [];
-
-var PINKS = scaleLinear()
-    .domain([0, 2])
-    .range(["#bc02eb", "#f5d9fc", "#fff"]);
-
-var GREENS = scaleLinear()
-    .domain([0, 2])
-    .range(["#089101", "#0ffa02", "#aefca9"]);
-
-var BLUES = scaleLinear()
-    .domain([-3, 0, 3])
-    .range(["#bc02eb", "#036bfc", "#bceb02"]);
 
 export default class Grades extends React.Component {
 
@@ -107,7 +97,7 @@ export default class Grades extends React.Component {
                         return `${genericClass} node--has-topics`;
                     }
                     if (!d.children) {
-                        return `${genericClass} node--leaf`;
+                        return `${genericClass} node--leaf standard`;
                     }
                     return genericClass;
                 })
@@ -125,6 +115,7 @@ export default class Grades extends React.Component {
                 .on("click", function (d, event) {
                     if (!d.children) {
                         updateSidePanel(d);
+                        highlightConnected(d, CC_CONNECTION_NODES, CC_LINKS);
                     }
                 })
                 .style("fill", function (d) {
@@ -263,87 +254,6 @@ export default class Grades extends React.Component {
             })
             .text((d) => {
                 if (d.depth === 0) return d.data.name;
-            });
-    }
-
-
-    highlightConnected(node) {
-        // builds distance values for every node
-        CC_CONNECTION_NODES.forEach(function (d) {
-            d.distance = null;
-        });
-        node.distance = 0;
-
-        var i = -1;
-        var foundOne = false;
-        while (true) {
-            foundOne = false;
-            CC_LINKS.forEach(function (link) {
-                if (link.target.distance === i + 1 && link.source.distance === null) {
-                    foundOne = true;
-                    link.source.distance = i;
-                    link.source.edgeType = link.type;
-                }
-            });
-            if (!foundOne) break;
-            --i;
-        }
-        i = 1;
-        while (true) {
-            foundOne = false;
-            CC_LINKS.forEach(function (link) {
-                if (link.source.distance === i - 1 && link.target.distance === null) {
-                    foundOne = true;
-                    link.target.distance = i;
-                    link.target.edgeType = link.type;
-                }
-            });
-            if (!foundOne) break;
-            ++i;
-        }
-
-        // this stays highlighted until the user selects another
-        selectAll(".standard")
-            .style("fill", function (d) {
-                // if (d.data.data.codeTrimmed === "CC.4.b") {
-                //     debugger;
-                // }
-                // distance can go up to ....
-                if (Math.abs(d.distance) > 8) {
-                    d.distance = 5;
-                }
-                if (d.distance !== null && d.edgeType === "non-directional") {
-                    // if it's close to the current node, make it bright blue. 
-                    // but quickly make this more yellow with distance
-                    return BLUES(Math.abs(d.distance));
-                } else if (d.distance < 0) {
-                    return PINKS(Math.abs(d.distance));
-                } else if (d.distance > 0) {
-                    return GREENS(d.distance);
-                }
-                return "#E4F8F5";
-            })
-            .attr("stroke-width", (d) => {
-                // if some kind of relationship
-                if (d.distance !== null) {
-                    if (d.distance === 0) {
-                        return "1.5";
-                    }
-                    return "0.5";
-                }
-                return "0";
-            })
-            .attr("stroke", (d) => {
-                if (d.distance !== null) {
-                    return "black";
-                }
-                return "none";
-            })
-            .attr("stroke-dasharray", (d) => {
-                if (d.distance && (Math.abs(d.distance) > 0) && d.edgeType === "non-directional") {
-                    return "2,3,2";
-                }
-                return "none";
             });
     }
 
