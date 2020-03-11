@@ -73,7 +73,7 @@ export default class Container extends React.Component {
             <React.Fragment>
                 <div className="container" ref={container => this.container = container} >
                     <svg className="canvas" ref={canvas => this.canvas = canvas}>
-                        <g className="grades" ref={grades => this.grades = grades}>
+                        <g ref={grades => this.grades = grades}>
                             {this.renderGrades()}
                         </g>
                     </svg>

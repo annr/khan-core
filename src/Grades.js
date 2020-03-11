@@ -36,12 +36,11 @@ export default class Grades extends React.Component {
     createGrades() {
         const layouts = this.props.layouts;
         const grades = this.container;
-        const gradeIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
         // first create the containers for the grades with their attributes set
         select(grades)
             .selectAll("g")
-            .data(gradeIndexes)
+            .data([...Array(9).keys()])
             .enter()
             .append("g")
             .attr("id", (d) => {
