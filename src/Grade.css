@@ -6,7 +6,6 @@
 .label {
     text-anchor: middle;
     pointer-events: none;
-    font-size: 0.7em;
 }
 
 .node--leaf:hover {

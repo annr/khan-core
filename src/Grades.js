@@ -65,8 +65,17 @@ export default class Grades extends React.Component {
 
             const packLayout = pack();
 
+            // the padding and label size is based on the size of the circles.
+            // for padding, 1 pad per 100
+            const padding = Math.ceil(layouts[i][2] / 100);
+            // the reason we set label sizes relative to the circle is because the 
+            // media query will change when the window is expanded, but the circle
+            // size will not. These are ems.
+            const labelSize = (Math.floor(layouts[i][2] / 10) - 10) / 100;
+            const gradeHeadingSize = (Math.ceil(layouts[i][2] / 30)) / 10;
+
             packLayout.size([layouts[i][2], layouts[i][2]])
-                .padding(12);
+                .padding(padding);
 
             packLayout(root);
 
@@ -148,11 +157,12 @@ export default class Grades extends React.Component {
                 .attr("y", function (d) { return d.y; })
                 .attr("dy", "0.3em")
                 .attr("class", "label")
+                .style("font-size", labelSize + "em")
                 .text((d) => {
                     return d.children ? "" : d.data.data.codeTrimmed
                 });
 
-            this.addCirclePathGradeName(i, nodes);
+            this.addCirclePathGradeName(i, nodes, gradeHeadingSize);
             this.addTooltips(i, nodes);
 
             // For each of the nodes, make a selectable reference using the id
@@ -210,8 +220,8 @@ export default class Grades extends React.Component {
             });
     }
 
-    addCirclePathGradeName(i, nodes) {
-        const positionTopRightQuadrant = "34%";
+    addCirclePathGradeName(i, nodes, gradeHeadingSize) {
+        const positionTopRightQuadrant = "33%";
         select(`#grade-${i}`)
             .selectAll("g")
             .data(nodes).append("path")
@@ -251,6 +261,7 @@ export default class Grades extends React.Component {
             .attr("xlink:xlink:href", (d) => {
                 if (d.depth === 0) return `#heading-for-${d.data.id}`;
             })
+            .style("font-size", gradeHeadingSize + "em")
             .text((d) => {
                 if (d.depth === 0) return d.data.name;
             });
