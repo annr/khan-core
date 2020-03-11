@@ -186,7 +186,6 @@ export default class Grades extends React.Component {
             const source = parseInt(nd_edges[k].from, 10);
             if (CC_CONNECTION_NODES[target] && CC_CONNECTION_NODES[source]) {
                 CC_LINKS.push({ source: CC_CONNECTION_NODES[source], target: CC_CONNECTION_NODES[target], type: "non-directional" });
-                console.log('made nd link')
             }
         }
     } // end createGrades
