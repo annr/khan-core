@@ -66,11 +66,11 @@ export default class Grades extends React.Component {
 
             // the padding and label size is based on the size of the circles.
             // for padding, 1 pad per 100
-            const padding = Math.ceil(layouts[i][2] / 100);
+            const padding = Math.ceil(layouts[i][2] / 124);
             // the reason we set label sizes relative to the circle is because the 
             // media query will change when the window is expanded, but the circle
             // size will not. These are ems.
-            const labelSize = (Math.floor(layouts[i][2] / 10) - 10) / 100;
+            const labelSize = (Math.floor(layouts[i][2] / 12) - 10) / 100;
             const gradeHeadingSize = (Math.ceil(layouts[i][2] / 30)) / 10;
 
             packLayout.size([layouts[i][2], layouts[i][2]])
@@ -156,9 +156,21 @@ export default class Grades extends React.Component {
                 .attr("y", function (d) { return d.y; })
                 .attr("dy", "0.3em")
                 .attr("class", "label")
-                .style("font-size", labelSize + "em")
+                .attr("id", (d) => {
+                    return `leaf-node-label-${d.data.id}`
+                })
+                .style("font-size", (d) => {
+                    if (!d.children) {
+                        const tooWideLabels = ["NBT.A.3.a", "NBT.A.3.b"];
+                        if (tooWideLabels.indexOf(d.data.data.codeTrimmed) !== -1) {
+                            const shrunkLabelSize = labelSize * 0.9
+                            return shrunkLabelSize + "em";
+                        }
+                        return labelSize + "em";
+                    }
+                })
                 .text((d) => {
-                    return d.children ? "" : d.data.data.codeTrimmed
+                    return d.children ? "" : d.data.data.codeTrimmed;
                 });
 
             this.addCirclePathGradeName(i, nodes, gradeHeadingSize);

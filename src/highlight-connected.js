@@ -1,13 +1,19 @@
 import { selectAll } from 'd3-selection';
 import { scaleLinear } from "d3-scale";
 
+const PREREQS = scaleLinear().domain([1, 6])
+    .range(["mediumorchid", "#fcdef1"])
+
+const POSTREQS = scaleLinear().domain([1, 6])
+    .range(["gold", "lightgoldenrodyellow"])
+
 const PINKS = scaleLinear()
     .domain([0, 2])
     .range(["#bc02eb", "#f5d9fc", "#fff"]);
 
 const GREENS = scaleLinear()
     .domain([0, 2])
-    .range(["#089101", "#0ffa02", "#aefca9"]);
+    .range(["gold", "yellow", "yellowgreen"]);
 
 const BLUES = scaleLinear()
     .domain([-3, 0, 3])
@@ -56,25 +62,37 @@ const highlightConnected = function (node, NODES, LINKS) {
             //     debugger;
             // }
             // distance can go up to ....
+            if (d.distance === 0) {
+                return "#ffffff";
+
+            }
             if (Math.abs(d.distance) > 8) {
                 d.distance = 5;
             }
             if (d.distance !== null && d.edgeType === "non-directional") {
                 return BLUES(Math.abs(d.distance));
             } else if (d.distance < 0) {
-                return PINKS(Math.abs(d.distance));
+                return PREREQS(Math.abs(d.distance));
             } else if (d.distance > 0) {
-                return GREENS(d.distance);
+                return POSTREQS(d.distance);
             }
             return "#E4F8F5";
+        })
+        .attr("filter", (d) => {
+            if (d.distance < 0) {
+                return "url(#inset-shadow)";
+            }
+            if (d.distance > 0) {
+                return "url(#raised)";
+            }
         })
         .attr("stroke-width", (d) => {
             // if some kind of relationship
             if (d.distance !== null) {
                 if (d.distance === 0) {
-                    return "1.5";
+                    return "3";
                 }
-                return "0.5";
+                return "1.5";
             }
             return "0";
         })
@@ -86,7 +104,7 @@ const highlightConnected = function (node, NODES, LINKS) {
         })
         .attr("stroke-dasharray", (d) => {
             if (d.distance && (Math.abs(d.distance) > 0) && d.edgeType === "non-directional") {
-                return "2,3,2";
+                return "2 2";
             }
             return "none";
         });

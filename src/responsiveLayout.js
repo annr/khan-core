@@ -1,10 +1,14 @@
-export const DOUBLE_COLUMN_BREAKPOINT = 1280;
+export const DOUBLE_COLUMN_BREAKPOINT = 1278;
+
+// extraWidth is required to make circles a bit bigger for the 2-col layout
+// we need to do this for standard topic labels which have an extra character and
+// can be too wide
 
 // Grade width is a constant using marign, windowWidth and breakpoints
 // Only two-column for now
-export function getGradeWidth(windowWidth, margin = 0) {
+export function getGradeWidth(windowWidth, margin = 0, extraWidth = 0) {
     if (windowWidth >= DOUBLE_COLUMN_BREAKPOINT) {
-        return Math.floor(windowWidth / 2) - (margin + margin / 2);
+        return Math.floor(extraWidth / 2) + Math.floor(windowWidth / 2) - (margin + margin / 2);
     }
     return windowWidth;
 }
@@ -15,8 +19,8 @@ export function get1ColYTranslate(i, gradeWidth) {
 
 // We calculate "x" using modulus. Even index grades are shifted by margin,
 // and odd grades are shifted by gradeWidth + (margin * 2)
-export function getXTranslate(i, gradeWidth, margin = 0) {
-    return margin + ((i % 2 !== 0) ? gradeWidth + margin : 0);
+export function getXTranslate(i, gradeWidth, margin = 0, extraWidth = 0) {
+    return -(Math.floor(extraWidth / 2)) + (margin + ((i % 2 !== 0) ? gradeWidth + margin : 0));
 }
 
 // We calculate "y" using the number of rows down plus totalVerticalMargin
@@ -29,12 +33,12 @@ export function get2ColYTranslate(i, gradeWidth, margin, totalStepHeight) {
 export function getTransformsAndWidths2Col(gradesLength, windowWidth) {
     const margin = 5;
     // grade groups are square
-    const gradeWidth = getGradeWidth(windowWidth, margin);
+    const gradeWidth = getGradeWidth(windowWidth, margin, 500);
     const transformsAndWidth = [];
     const stepHeight = 48;
     let totalStepHeight = 0;
     for (let i = 0; i < gradesLength; i++) {
-        let x = getXTranslate(i, gradeWidth, margin);
+        let x = getXTranslate(i, gradeWidth, margin, 500);
         // make rows
         // we add to total step every other one
         if (i % 2 !== 0) {

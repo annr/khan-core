@@ -30,7 +30,7 @@ circle {
 }
 
 .gradeHeading {
-    fill: #8ecdd4;
+    fill: rgb(110, 181, 192);
 }
 
 .node--cluster-major, .node--cluster-additional, .node--cluster-supporting {

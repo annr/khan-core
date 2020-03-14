@@ -44,7 +44,7 @@ const updateSidePanel = function (d) {
             const dt = document.createElement('dt');
             dt.textContent = topicLetter;
             const dd = document.createElement('dd');
-            dd.textContent = topic.data.data.description;
+            dd.innerHTML = topic.data.data.description;
             div.appendChild(dt);
             div.appendChild(dd);
             topics.appendChild(div);
