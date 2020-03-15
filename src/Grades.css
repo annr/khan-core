@@ -12,8 +12,19 @@
 }
 
 .node--leaf:hover {
-    stroke: #000 !important;
-    stroke-width: 3px !important;
+    stroke: #000;
+    stroke-width: 3px;
+}
+
+.selected-node {
+    stroke-width: 10px;
+    stroke: url(#rainbow);
+    filter: url(#raised);
+}
+.selected-node:hover {
+    stroke-width: 10px !important;
+    stroke: url(#rainbow) !important;
+    filter: url(#raised) !important;
 }
 
 .node--leaf {

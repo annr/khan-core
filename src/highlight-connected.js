@@ -1,23 +1,14 @@
-import { selectAll } from 'd3-selection';
+import { select, selectAll } from 'd3-selection';
 import { scaleLinear } from "d3-scale";
 
 const PREREQS = scaleLinear().domain([1, 6])
     .range(["mediumorchid", "#fcdef1"])
 
-const POSTREQS = scaleLinear().domain([1, 6])
+const ENABLED = scaleLinear().domain([1, 6])
     .range(["gold", "lightgoldenrodyellow"])
 
-const PINKS = scaleLinear()
-    .domain([0, 2])
-    .range(["#bc02eb", "#f5d9fc", "#fff"]);
-
-const GREENS = scaleLinear()
-    .domain([0, 2])
-    .range(["gold", "yellow", "yellowgreen"]);
-
-const BLUES = scaleLinear()
-    .domain([-3, 0, 3])
-    .range(["#bc02eb", "#036bfc", "#bceb02"]);
+const RELATED = scaleLinear().domain([1, 6])
+    .range(["#9db8e0", "white"])
 
 const highlightConnected = function (node, NODES, LINKS) {
     // builds distance values for every node
@@ -57,11 +48,21 @@ const highlightConnected = function (node, NODES, LINKS) {
 
     // this stays highlighted until the user selects another
     selectAll(".standard")
+        .classed("selected-node", (d) => d.distance === 0)
+        .attr("r", (d) => {
+            if (d.distance === 0) {
+                // make selected node slightly smaller to accomodate thick stroke
+                return d.r - 5;
+            }
+            return d.r;
+        })
         .style("fill", function (d) {
             // if (d.data.data.codeTrimmed === "CC.4.b") {
             //     debugger;
             // }
             // distance can go up to ....
+
+            // current selected.
             if (d.distance === 0) {
                 return "#ffffff";
 
@@ -70,13 +71,12 @@ const highlightConnected = function (node, NODES, LINKS) {
                 d.distance = 5;
             }
             if (d.distance !== null && d.edgeType === "non-directional") {
-                return BLUES(Math.abs(d.distance));
+                return RELATED(Math.abs(d.distance));
             } else if (d.distance < 0) {
                 return PREREQS(Math.abs(d.distance));
             } else if (d.distance > 0) {
-                return POSTREQS(d.distance);
+                return ENABLED(d.distance);
             }
-            return "#E4F8F5";
         })
         .attr("filter", (d) => {
             if (d.distance < 0) {
@@ -90,21 +90,22 @@ const highlightConnected = function (node, NODES, LINKS) {
             // if some kind of relationship
             if (d.distance !== null) {
                 if (d.distance === 0) {
+                    return 5;
+                }
+                if ((Math.abs(d.distance) > 0) && d.edgeType === "non-directional") {
                     return "3";
                 }
-                return "1.5";
             }
-            return "0";
         })
         .attr("stroke", (d) => {
-            if (d.distance !== null) {
+            if (d.distance && (Math.abs(d.distance) > 0) && d.edgeType === "non-directional") {
                 return "black";
             }
             return "none";
         })
         .attr("stroke-dasharray", (d) => {
             if (d.distance && (Math.abs(d.distance) > 0) && d.edgeType === "non-directional") {
-                return "2 2";
+                return "3 3";
             }
             return "none";
         });
