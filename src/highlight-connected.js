@@ -1,4 +1,4 @@
-import { select, selectAll } from 'd3-selection';
+import { selectAll } from 'd3-selection';
 import { scaleLinear } from "d3-scale";
 
 const PREREQS = scaleLinear().domain([1, 6])
@@ -9,6 +9,14 @@ const ENABLED = scaleLinear().domain([1, 6])
 
 const RELATED = scaleLinear().domain([1, 6])
     .range(["#9db8e0", "white"])
+
+export const unsetConnected = function () {
+    selectAll(".standard")
+        .classed("selected-node", false)
+        .classed("non-directional", false)
+        .style("fill", null)
+        .attr("filter", null);
+}
 
 const highlightConnected = function (node, NODES, LINKS) {
     // builds distance values for every node
@@ -62,10 +70,6 @@ const highlightConnected = function (node, NODES, LINKS) {
             return d.r;
         })
         .style("fill", function (d) {
-            // if (d.data.data.codeTrimmed === "CC.4.b") {
-            //     debugger;
-            // }
-            // distance can go up to ....
             if (Math.abs(d.distance) > 8) {
                 d.distance = 5;
             }
@@ -83,14 +87,6 @@ const highlightConnected = function (node, NODES, LINKS) {
             }
             if (d.distance > 0) {
                 return "url(#raised)";
-            }
-        })
-        .attr("stroke-width", (d) => {
-            // if some kind of relationship
-            if (d.distance !== null) {
-                if (d.distance === 0) {
-                    return 5;
-                }
             }
         });
 }

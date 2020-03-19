@@ -8,8 +8,8 @@ import { interpolateHcl } from "d3-interpolate";
 import data from "./data/ccssm-flare.json";
 import cc from "./data/cc.json";
 
-import updateSidePanel from "./update-side-panel";
-import highlightConnected from "./highlight-connected";
+import updateSidePanel, { resetSidePanel } from "./update-side-panel";
+import highlightConnected, { unsetConnected } from "./highlight-connected";
 
 import "./Grades.css";
 
@@ -122,8 +122,14 @@ export default class Grades extends React.Component {
                 })
                 .on("click", function (d, event) {
                     if (!d.children) {
-                        updateSidePanel(d);
-                        highlightConnected(d, CC_CONNECTION_NODES, CC_LINKS);
+                        // if is already selected, unset panel
+                        if (this.className.baseVal.indexOf('selected') !== -1) {
+                            resetSidePanel(d);
+                            unsetConnected(d, CC_CONNECTION_NODES, CC_LINKS);
+                        } else {
+                            updateSidePanel(d);
+                            highlightConnected(d, CC_CONNECTION_NODES, CC_LINKS);
+                        }
                     }
                 })
                 .style("fill", function (d) {

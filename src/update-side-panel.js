@@ -1,3 +1,12 @@
+/* We can't update the side panel with React, so this is quite tedious */
+
+export const resetSidePanel = function () {
+    const initialContent = document.getElementById("initialContent");
+    initialContent.style.display = "block";
+    const dynamicContent = document.getElementById("dynamicContent");
+    dynamicContent.style.display = "none";
+}
+
 const updateSidePanel = function (d) {
     // if the node is a bullet point of a standard (standard topic),
     // then you want to show the cluster and the standard title
@@ -11,6 +20,9 @@ const updateSidePanel = function (d) {
     // this is old school!
     const initialContent = document.getElementById("initialContent");
     initialContent.style.display = "none";
+
+    const dynamicContent = document.getElementById("dynamicContent");
+    dynamicContent.style.display = "block";
 
     const dynamicHeading = document.getElementById("selectedStandardHeadingWrapper");
     dynamicHeading.innerHTML = "";
