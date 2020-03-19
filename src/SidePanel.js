@@ -11,7 +11,7 @@ export default class SidePanel extends React.Component {
                     {/* pad the bottom to clear the gradient */}
                     <br />
                 </div>
-                <div className="fixed-reveal-gradient"></div>
+                {/* <div className="fixed-reveal-gradient"></div> */}
             </React.Fragment>
         );
     }

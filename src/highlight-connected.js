@@ -49,6 +49,11 @@ const highlightConnected = function (node, NODES, LINKS) {
     // this stays highlighted until the user selects another
     selectAll(".standard")
         .classed("selected-node", (d) => d.distance === 0)
+        .classed("non-directional", (d) => {
+            if (d.distance && (Math.abs(d.distance) > 0) && d.edgeType === "non-directional") {
+                return true;
+            }
+        })
         .attr("r", (d) => {
             if (d.distance === 0) {
                 // make selected node slightly smaller to accomodate thick stroke
@@ -61,12 +66,6 @@ const highlightConnected = function (node, NODES, LINKS) {
             //     debugger;
             // }
             // distance can go up to ....
-
-            // current selected.
-            if (d.distance === 0) {
-                return "#ffffff";
-
-            }
             if (Math.abs(d.distance) > 8) {
                 d.distance = 5;
             }
@@ -92,22 +91,7 @@ const highlightConnected = function (node, NODES, LINKS) {
                 if (d.distance === 0) {
                     return 5;
                 }
-                if ((Math.abs(d.distance) > 0) && d.edgeType === "non-directional") {
-                    return "3";
-                }
             }
-        })
-        .attr("stroke", (d) => {
-            if (d.distance && (Math.abs(d.distance) > 0) && d.edgeType === "non-directional") {
-                return "black";
-            }
-            return "none";
-        })
-        .attr("stroke-dasharray", (d) => {
-            if (d.distance && (Math.abs(d.distance) > 0) && d.edgeType === "non-directional") {
-                return "3 3";
-            }
-            return "none";
         });
 }
 

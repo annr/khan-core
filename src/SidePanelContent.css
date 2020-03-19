@@ -1,5 +1,27 @@
-.dynamic-content {
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: x-large;
+}
+
+h1, h2 {
+    line-height: 140%;
+}
+
+h2.commonCoreCode {
+    margin: 16px 0 8px;
+    font-size: xx-large;
+}
+
+#dynamicContent {
     font-size: 0.9em;
+    margin-top: 16px;
+}
+
+.closedPanel {
+    transition: all 1s ease-out;
+    transform: translateX(-100%);
 }
 
 #cluster {
@@ -52,3 +74,21 @@ dl#topics div.selectedTopic {
 #khanContentLinks li {
     margin-bottom: 8px;
 }
+
+#collapseIcon {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    cursor: pointer;
+    border: 0;
+ }
+
+ .closed {
+     transition: all 0.5s ease;
+     transform: rotate(-90deg);
+ }
+
+ .open {
+     transition: all 0.5s ease;
+     transform: rotate(0deg);
+ }

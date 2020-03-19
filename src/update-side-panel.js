@@ -9,11 +9,18 @@ const updateSidePanel = function (d) {
 
     // get all the elements from side panel that need to be updated.
     // this is old school!
+    const initialContent = document.getElementById("initialContent");
+    initialContent.style.display = "none";
+
+    const dynamicHeading = document.getElementById("selectedStandardHeadingWrapper");
+    dynamicHeading.innerHTML = "";
+    const heading = document.createElement("h2");
+    heading.className = "commonCoreCode";
+    dynamicHeading.appendChild(heading)
+
     const cluster = document.getElementById("cluster");
     const clusterType = document.getElementById("clusterType");
     const clusterDescription = document.getElementById("clusterDescription");
-    const heading = document.getElementById("heading");
-    const subheading = document.getElementById("subheading");
     const description = document.getElementById("description");
     const topics = document.createElement('dl');
 
@@ -29,7 +36,7 @@ const updateSidePanel = function (d) {
     clusterType.textContent = `${typeStringPrepared} cluster`;
     clusterDescription.innerHTML = node.parent.data.name;
     cluster.style.display = "block";
-    subheading.style.display = "none";
+
     heading.textContent = node.data.data.code;
 
     // if the standard has children, show those as bullet points below the desc

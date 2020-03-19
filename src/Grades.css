@@ -21,10 +21,21 @@
     stroke: url(#rainbow);
     filter: url(#raised);
 }
+
 .selected-node:hover {
-    stroke-width: 10px !important;
-    stroke: url(#rainbow) !important;
-    filter: url(#raised) !important;
+    stroke-width: 10px;
+    stroke: url(#rainbow);
+    filter: url(#raised);
+}
+
+.non-directional {
+    stroke-dasharray: 3 3;
+    stroke: black;
+    stroke-width: 3;
+}
+
+.non-directional:hover {
+    stroke-dasharray: none;
 }
 
 .node--leaf {
@@ -41,7 +52,7 @@ circle {
 }
 
 .gradeHeading {
-    fill: rgb(110, 181, 192);
+    fill: rgb(84, 170, 184);
 }
 
 .node--cluster-major, .node--cluster-additional, .node--cluster-supporting {

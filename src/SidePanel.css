@@ -1,13 +1,12 @@
-
 .side-panel {
     background-color:#fff;
     position: absolute;
     top: 0;
     width: 25%;
-    max-width: 440px;
-    min-width: 260px;
+    max-width: 420px;
+    min-width: 300px;
     height: 520px;
-    padding: 20px;
+    padding: 10px 20px;
     box-shadow: 3px 1px 3px 1px rgba(0, 0, 0, .2);
     overflow: auto;
     border-radius: 0 0 10px;
@@ -23,7 +22,7 @@ What this means now is that the styles that change above also have to change bel
 Also note that with this solution one can't scroll if their cursor is hovered over the
 gradient.
 */
-.fixed-reveal-gradient {
+/* .fixed-reveal-gradient {
     position: absolute;
     padding: 20px;
     top: 480px;
@@ -40,4 +39,4 @@ gradient.
     position: absolute;
     right: -30px;
     top: 10px;
-}
+} */
