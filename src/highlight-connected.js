@@ -2,13 +2,13 @@ import { select, selectAll } from 'd3-selection';
 import { scaleLinear } from "d3-scale";
 
 const PREREQS = scaleLinear().domain([1, 6])
-    .range(["mediumorchid", "#fcdef1"])
+    .range(["mediumorchid", "#fcdef1"]);
 
 const ENABLED = scaleLinear().domain([1, 6])
-    .range(["gold", "lightgoldenrodyellow"])
+    .range(["gold", "lightgoldenrodyellow"]);
 
 const RELATED = scaleLinear().domain([1, 6])
-    .range(["#9db8e0", "white"])
+    .range(["#9db8e0", "white"]);
 
 export const unsetConnected = function (currentNode) {
     selectAll(".standard")

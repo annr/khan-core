@@ -10,9 +10,8 @@ export default function SidePanelContent() {
                 <h1 className="sidePanelHeading">Khan Core</h1>
                 <h2 style={{ "fontWeight": "normal" }}>Find and fill math gaps in grades <span style={{ "whiteSpace": "nowrap" }}>K through 8.</span></h2>
                 <p>Use this map to explore grade school math content using using relationships built into the Common Core State Standards.</p>
-                <p>Links to Khan Academy content are provided.</p>
                 <h3>To Use:</h3>
-                <p>Select a standard to see details and resources in this panel.</p>
+                <p className="instructionsWrapper">Select a standard to see details and <img src={logo} alt="Khan Academy" width="128" height="28" className="inlineLogo" /> resources.</p>
                 <p>Zoom in and out and drag for better views.</p>
                 <p>
                     <a

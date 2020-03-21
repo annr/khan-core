@@ -2,6 +2,13 @@
     padding: 0 2px;
 }
 
+.inlineLogo {
+    vertical-align: bottom;
+}
+.instructionsWrapper {
+    line-height: 180%;
+}
+
 #description {
     padding: 0 2px;
 }

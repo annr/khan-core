@@ -4,6 +4,7 @@
 
 .node {
     cursor: pointer;
+    opacity: 0.3;
 }
 
 .label {
@@ -39,10 +40,6 @@
 .node--leaf {
     fill: white;
     opacity: 1;
-}
-
-circle {
-    opacity: 0.3;
 }
 
 #selectedRing {
