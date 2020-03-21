@@ -1,4 +1,4 @@
-import { selectAll } from 'd3-selection';
+import { select, selectAll } from 'd3-selection';
 import { scaleLinear } from "d3-scale";
 
 const PREREQS = scaleLinear().domain([1, 6])
@@ -10,12 +10,14 @@ const ENABLED = scaleLinear().domain([1, 6])
 const RELATED = scaleLinear().domain([1, 6])
     .range(["#9db8e0", "white"])
 
-export const unsetConnected = function () {
+export const unsetConnected = function (currentNode) {
     selectAll(".standard")
         .classed("selected-node", false)
         .classed("non-directional", false)
         .style("fill", null)
         .attr("filter", null);
+
+    select(currentNode).attr("r", (d) => d.r);
 }
 
 const highlightConnected = function (node, NODES, LINKS) {
@@ -65,7 +67,7 @@ const highlightConnected = function (node, NODES, LINKS) {
         .attr("r", (d) => {
             if (d.distance === 0) {
                 // make selected node slightly smaller to accomodate thick stroke
-                return d.r - 5;
+                return d.r - 3;
             }
             return d.r;
         })

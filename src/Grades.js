@@ -126,7 +126,7 @@ export default class Grades extends React.Component {
                         const classNames = this.className.baseVal;
                         if (classNames.indexOf('selected-node') !== -1) {
                             resetSidePanel(d);
-                            unsetConnected(d, CC_CONNECTION_NODES, CC_LINKS);
+                            unsetConnected(this);
                         } else {
                             updateSidePanel(d);
                             highlightConnected(d, CC_CONNECTION_NODES, CC_LINKS);
