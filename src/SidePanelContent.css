@@ -1,27 +1,9 @@
-
-h1 {
-    margin-top: 0;
-    margin-bottom: 8px;
-    font-size: x-large;
+#initialContent, #selectedStandardHeadingWrapper {
+    padding: 0 2px;
 }
 
-h1, h2 {
-    line-height: 140%;
-}
-
-h2.commonCoreCode {
-    margin: 16px 0 8px;
-    font-size: xx-large;
-}
-
-#dynamicContent {
-    font-size: 0.9em;
-    margin-top: 16px;
-}
-
-.closedPanel {
-    transition: all 1s ease-out;
-    transform: translateX(-100%);
+#description {
+    padding: 0 2px;
 }
 
 #cluster {
@@ -30,6 +12,7 @@ h2.commonCoreCode {
     border-radius: 4px;
     padding: 12px;
     line-height: 130%;
+    margin-top: 20px;
 }
 
 #clusterDescription {
@@ -74,21 +57,3 @@ dl#topics div.selectedTopic {
 #khanContentLinks li {
     margin-bottom: 8px;
 }
-
-#collapseIcon {
-    position: absolute;
-    right: 12px;
-    top: 8px;
-    cursor: pointer;
-    border: 0;
- }
-
- .closed {
-     transition: all 0.5s ease;
-     transform: rotate(-90deg);
- }
-
- .open {
-     transition: all 0.5s ease;
-     transform: rotate(0deg);
- }

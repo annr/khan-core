@@ -5,6 +5,8 @@ export const resetSidePanel = function () {
     initialContent.style.display = "block";
     const dynamicContent = document.getElementById("dynamicContent");
     dynamicContent.style.display = "none";
+    const selectedStandardHeading = document.getElementById("selectedStandardHeadingWrapper");
+    selectedStandardHeading.style.display = "none";
 }
 
 const updateSidePanel = function (d) {
@@ -18,6 +20,9 @@ const updateSidePanel = function (d) {
 
     // get all the elements from side panel that need to be updated.
     // this is old school!
+    const selectedStandardHeading = document.getElementById("selectedStandardHeadingWrapper");
+    selectedStandardHeading.style.display = "block";
+
     const initialContent = document.getElementById("initialContent");
     initialContent.style.display = "none";
 
@@ -27,12 +32,13 @@ const updateSidePanel = function (d) {
     const dynamicHeading = document.getElementById("selectedStandardHeadingWrapper");
     dynamicHeading.innerHTML = "";
     const heading = document.createElement("h2");
-    heading.className = "commonCoreCode";
+    heading.className = "sidePanelHeading";
     dynamicHeading.appendChild(heading)
 
     const cluster = document.getElementById("cluster");
     const clusterType = document.getElementById("clusterType");
     const clusterDescription = document.getElementById("clusterDescription");
+
     const description = document.getElementById("description");
     const topics = document.createElement('dl');
 

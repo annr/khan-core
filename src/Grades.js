@@ -123,7 +123,8 @@ export default class Grades extends React.Component {
                 .on("click", function (d, event) {
                     if (!d.children) {
                         // if is already selected, unset panel
-                        if (this.className.baseVal.indexOf('selected') !== -1) {
+                        const classNames = this.className.baseVal;
+                        if (classNames.indexOf('selected-node') !== -1) {
                             resetSidePanel(d);
                             unsetConnected(d, CC_CONNECTION_NODES, CC_LINKS);
                         } else {
