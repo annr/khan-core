@@ -123,6 +123,8 @@ export default class Grades extends React.Component {
                 .on("click", function (d, event) {
                     if (!d.children) {
                         // if is already selected, unset panel
+                        // remove any selected rings
+                        select("#selectedRing").remove();
                         const classNames = this.className.baseVal;
                         if (classNames.indexOf('selected-node') !== -1) {
                             resetSidePanel(d);
@@ -130,6 +132,15 @@ export default class Grades extends React.Component {
                         } else {
                             updateSidePanel(d);
                             highlightConnected(d, CC_CONNECTION_NODES, CC_LINKS);
+
+                            select(this.parentNode)
+                                .append("circle")
+                                .attr("cx", function (d) {
+                                    return d.x;
+                                })
+                                .attr("cy", function (d) { return d.y; })
+                                .attr('r', d => d.r)
+                                .attr("id", "selectedRing");
                         }
                     }
                 })

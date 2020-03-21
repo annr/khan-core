@@ -17,15 +17,13 @@
 }
 
 .selected-node {
-    stroke-width: 7px;
+    stroke-width: 10px;
     stroke: url(#rainbow);
-    filter: url(#raised);
 }
 
 .selected-node:hover {
-    stroke-width: 7px;
+    stroke-width: 10px;
     stroke: url(#rainbow);
-    filter: url(#raised);
 }
 
 .non-directional {
@@ -45,6 +43,13 @@
 
 circle {
     opacity: 0.3;
+}
+
+#selectedRing {
+    stroke: black;
+    stroke-width: 4;
+    opacity: 1;
+    fill: none;
 }
 
 .circlePath {

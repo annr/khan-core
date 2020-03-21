@@ -67,7 +67,7 @@ const highlightConnected = function (node, NODES, LINKS) {
         .attr("r", (d) => {
             if (d.distance === 0) {
                 // make selected node slightly smaller to accomodate thick stroke
-                return d.r - 3;
+                return d.r - 5;
             }
             return d.r;
         })
