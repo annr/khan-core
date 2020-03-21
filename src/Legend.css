@@ -1,15 +1,34 @@
+/* #legend has some custom styles beyond what it inherits from .panel */
 #legend {
-    background-color:#fff;
-    position: absolute;
     bottom: 0;
     right: 0;
-    height: 360px;
     width: 200px;
-    padding: 12px;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, .3);
-    overflow: auto;
     border-radius: 10px 0 0;
-    font-size: 0.9em;
+    border: 1px solid #ccc;
+}
+
+#legendToggleIcon {
+    left: 4px;
+    top: 8px;
+}
+
+.legend-open {
+    height: 348px;
+}
+
+.legend-closed {
+    height: 28px;
+    overflow-x: hidden;
+}
+
+.legendOpen {
+    transition: all 0.5s ease;
+    transform: rotate(-180deg);
+}
+
+.legendClosed {
+    transition: all 0.5s ease;
+    transform: rotate(-270deg);
 }
 
 #legend dl {
@@ -17,8 +36,8 @@
 }
 
 #legend dl dt {
-    font-size: large;
-    margin-bottom: 18px;
+    font-size: 1.5em;
+    margin: 3px 0 18px 24px;
     font-weight: bold;
 }
 
