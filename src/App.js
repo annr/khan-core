@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from "./Container"
 import SidePanel from './SidePanel';
-// import Footer from './Footer';
+import Legend from './Legend';
 
 class App extends React.Component {
 
@@ -11,7 +11,7 @@ class App extends React.Component {
         {/* <h1>Khan Academy Common Core</h1> */}
         <SidePanel />
         <Container />
-        {/* <Footer /> */}
+        <Legend />
       </React.Fragment>
     );
   }

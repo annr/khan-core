@@ -76,12 +76,29 @@ export default class Container extends React.Component {
                         <filter id="raised" height="200%" width="200%">
                             <feDropShadow dx="3" dy="5" stdDeviation="2" floodColor="#000" floodOpacity="0.5" />
                         </filter>
+                        <filter id="raised-example" height="200%" width="200%">
+                            <feDropShadow dx="1" dy="3" stdDeviation="2" floodColor="#000" floodOpacity="0.5" />
+                        </filter>
                         <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
                             <feComponentTransfer in="SourceAlpha">
                                 <feFuncA type="table" tableValues="1 0" />
                             </feComponentTransfer>
                             <feGaussianBlur stdDeviation="4" />
                             <feOffset dx="0" dy="5" result="offsetblur" />
+                            <feFlood floodColor="rgb(0, 0, 0)" result="color" />
+                            <feComposite in2="offsetblur" operator="in" />
+                            <feComposite in2="SourceAlpha" operator="in" />
+                            <feMerge>
+                                <feMergeNode in="SourceGraphic" />
+                                <feMergeNode />
+                            </feMerge>
+                        </filter>
+                        <filter id="inset-shadow-example" x="-50%" y="-50%" width="200%" height="200%">
+                            <feComponentTransfer in="SourceAlpha">
+                                <feFuncA type="table" tableValues="1 0" />
+                            </feComponentTransfer>
+                            <feGaussianBlur stdDeviation="2" />
+                            <feOffset dx="0" dy="2" result="offsetblur" />
                             <feFlood floodColor="rgb(0, 0, 0)" result="color" />
                             <feComposite in2="offsetblur" operator="in" />
                             <feComposite in2="SourceAlpha" operator="in" />

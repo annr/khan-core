@@ -1,0 +1,82 @@
+#legend {
+    background-color:#fff;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 360px;
+    width: 200px;
+    padding: 12px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, .3);
+    overflow: auto;
+    border-radius: 10px 0 0;
+    font-size: 0.9em;
+}
+
+#legend dl {
+    margin-top: 0;
+}
+
+#legend dl dt {
+    font-size: large;
+    margin-bottom: 18px;
+    font-weight: bold;
+}
+
+#legend dl dd {
+    margin: 0 0 4px 0;
+}
+
+.standardsList {
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ccc;
+}
+
+.legendItem {
+    vertical-align: middle;
+}
+
+.selected-node-example {
+    stroke-width: 5px;
+    stroke: url(#rainbow);
+    fill: none;
+}
+
+.selectedRing-example {
+    stroke: black;
+    stroke-width: 2;
+    opacity: 1;
+    fill: none;
+}
+
+.non-directional-example {
+    stroke-dasharray: 2 2;
+    stroke: black;
+    stroke-width: 2;
+}
+
+.prerequisite-example {
+    filter: url(#inset-shadow-example);
+}
+
+.enabled-example {
+    filter: url(#raised-example);
+}
+
+.cluster-example {
+    fill: #B5E5E3;
+    stroke-width: 1;
+    stroke: #748FAA;
+}
+
+.major-example {
+    fill: url(#major);
+}
+
+.additional-example {
+    fill: url(#additional);
+}
+
+.supporting-example {
+    fill: url(#supporting);
+}
+
