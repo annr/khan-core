@@ -77,11 +77,11 @@ export default function Legend() {
         <div id="legend" className={`panel ${isOpen ? "legend-open" : "legend-closed"}`}>
             <button type="button" aria-label="Toggle side bar" id="legendToggleIcon" className={`toggle-icon ${isOpen ? "legendOpen" : "legendClosed"}`} onClick={() => toggle(!isOpen)}>
                 <svg width="20" height="30" xmlns="http://www.w3.org/2000/svg" version="1.1">
-                    <polyline points="5 5 15 15 5 25" stroke="rgba(0,0,0,0.4)" strokeWidth="3" strokeLinecap="butt" fill="none" strokeLinejoin="round"></polyline>
+                    <polyline points="5 5 15 15 5 25" stroke="rgba(0,0,0,0.4)" strokeWidth="3" strokeLinecap="round" fill="none" strokeLinejoin="round"></polyline>
                 </svg>
             </button>
             <dl>
-                <dt>
+                <dt onClick={() => toggle(!isOpen)}>
                     Legend
                 </dt>
                 <dl className="standardsList">

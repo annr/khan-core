@@ -2,7 +2,7 @@
 #legend {
     bottom: 0;
     right: 0;
-    width: 200px;
+    width: 190px;
     border-radius: 10px 0 0;
     border: 1px solid #ccc;
 }
@@ -17,7 +17,7 @@
 }
 
 .legend-closed {
-    height: 28px;
+    height: 22px;
     overflow-x: hidden;
 }
 
@@ -33,12 +33,14 @@
 
 #legend dl {
     margin-top: 0;
+    cursor: pointer;
 }
 
 #legend dl dt {
     font-size: 1.5em;
     margin: 3px 0 18px 24px;
     font-weight: bold;
+    font-family: "Nunito", sans-serif;
 }
 
 #legend dl dd {

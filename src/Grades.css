@@ -55,6 +55,8 @@
 
 .gradeHeading {
     fill: rgb(84, 170, 184);
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
 }
 
 .node--cluster-major, .node--cluster-additional, .node--cluster-supporting {
