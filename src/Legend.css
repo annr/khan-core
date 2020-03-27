@@ -83,21 +83,15 @@
     filter: url(#raised-example);
 }
 
-.cluster-example {
-    fill: #B5E5E3;
-    stroke-width: 1;
-    stroke: #748FAA;
-}
-
 .major-example {
-    fill: url(#major);
+    fill: #84ca83;
 }
 
 .additional-example {
-    fill: url(#additional);
+    fill: #90bce9
 }
 
 .supporting-example {
-    fill: url(#supporting);
+    fill: #f2db5f
 }
 

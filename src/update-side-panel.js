@@ -54,6 +54,7 @@ const updateSidePanel = function (d) {
     clusterType.textContent = `${typeStringPrepared} cluster`;
     clusterDescription.innerHTML = node.parent.data.name;
     cluster.style.display = "block";
+    cluster.className = `cluster-${type}`
 
     heading.textContent = node.data.data.code;
 

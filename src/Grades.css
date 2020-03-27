@@ -28,9 +28,9 @@
 }
 
 .non-directional {
-    stroke-dasharray: 3 3;
+    stroke-dasharray: 6 6;
     stroke: black;
-    stroke-width: 3;
+    stroke-width: 4;
 }
 
 .non-directional:hover {

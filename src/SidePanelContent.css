@@ -15,7 +15,6 @@
 
 #cluster {
     display: none;
-    background-color: rgb(235, 235, 235);
     border-radius: 4px;
     padding: 12px;
     line-height: 130%;
@@ -64,3 +63,16 @@ dl#topics div.selectedTopic {
 #khanContentLinks li {
     margin-bottom: 8px;
 }
+
+.cluster-major {
+    background-color:rgb(214, 245, 208);
+}
+
+.cluster-additional {
+    background-color:rgb(214, 231, 250)
+}
+
+.cluster-supporting {
+    background-color:rgb(253, 241, 214);
+}
+    

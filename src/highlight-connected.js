@@ -1,14 +1,5 @@
 import { select, selectAll } from 'd3-selection';
-import { scaleLinear } from "d3-scale";
-
-const PREREQS = scaleLinear().domain([1, 6])
-    .range(["mediumorchid", "#fcdef1"]);
-
-const ENABLED = scaleLinear().domain([1, 6])
-    .range(["#ff9933", "lightgoldenrodyellow"]);
-
-const RELATED = scaleLinear().domain([1, 6])
-    .range(["#9db8e0", "white"]);
+import { PREREQS, ENABLED, RELATED } from "./colors";
 
 export const unsetConnected = function (currentNode) {
     selectAll(".standard")

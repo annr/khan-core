@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
-import { scaleLinear } from "d3-scale";
 import "./Legend.css"
-
-const PREREQS = scaleLinear().domain([1, 6])
-    .range(["mediumorchid", "#fcdef1"]);
-
-const ENABLED = scaleLinear().domain([1, 6])
-    .range(["gold", "lightgoldenrodyellow"]);
-
-const RELATED = scaleLinear().domain([1, 6])
-    .range(["#9db8e0", "white"]);
+import { PREREQS, ENABLED, RELATED } from "./colors";
 
 export default function Legend() {
     const [isOpen, toggle] = useState(false);
@@ -49,7 +40,6 @@ export default function Legend() {
     function renderMajor() {
         return (
             <svg height="36" width="36" className="legendItem">
-                <circle r="15" cx="18" cy="18" className="cluster-example"></circle>
                 <circle r="15" cx="18" cy="18" className="major-example"></circle>
             </svg>
         );
@@ -58,7 +48,6 @@ export default function Legend() {
     function renderAdditional() {
         return (
             <svg height="36" width="36" className="legendItem">
-                <circle r="15" cx="18" cy="18" className="cluster-example"></circle>
                 <circle r="15" cx="18" cy="18" className="additional-example"></circle>
             </svg>
         );
@@ -67,7 +56,6 @@ export default function Legend() {
     function renderSupporting() {
         return (
             <svg height="36" width="36" className="legendItem">
-                <circle r="15" cx="18" cy="18" className="cluster-example"></circle>
                 <circle r="15" cx="18" cy="18" className="supporting-example"></circle>
             </svg>
         );
@@ -85,10 +73,10 @@ export default function Legend() {
                     Legend
                 </dt>
                 <dl className="standardsList">
-                    <dd>{renderSelected()} selected standard</dd>
-                    <dd>{renderRelated()} related standard</dd>
-                    <dd>{renderPrerequisite()} prerequisite standard</dd>
-                    <dd>{renderEnabled()} enabled standard</dd>
+                    <dd>{renderSelected()} selected</dd>
+                    <dd>{renderRelated()} related</dd>
+                    <dd>{renderPrerequisite()} prerequisite</dd>
+                    <dd>{renderEnabled()} enabled</dd>
                 </dl>
                 <dl className="clustersList">
                     <dd>{renderMajor()} major cluster</dd>
