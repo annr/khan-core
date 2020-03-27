@@ -12,6 +12,23 @@ export const unsetConnected = function (currentNode) {
     select(currentNode).attr("r", (d) => d.r);
 }
 
+const getRelationship = (dist, edgeType) => {
+    let label;
+    const direction = (dist > 0) ? "after" : "before";
+    let step = `${Math.abs(dist)} step`;
+    if (Math.abs(dist) > 1) {
+        step += "s";
+    }
+    if (edgeType === "non-directional") {
+        label = "Related";
+    } else if (edgeType === "arrow" && dist < 0) {
+        label = "Foundation";
+    } else if (edgeType === "arrow" && dist > 0) {
+        label = "Enabled";
+    }
+    return `<b>${label}</b> standard <b>${step}</b> ${direction} selected`
+};
+
 const highlightConnected = function (node, NODES, LINKS) {
     // builds distance values for every node
     NODES.forEach(function (d) {
@@ -84,6 +101,37 @@ const highlightConnected = function (node, NODES, LINKS) {
             }
             if (d.distance > 0) {
                 return "url(#raised)";
+            }
+        });
+
+
+    selectAll(".tooltip")
+        .html((d) => {
+            // if it's a leaf node, highlight the any relationship in the tooltip
+            if (d.distance) {
+                if (!d.children && (d.data && d.data.data)) {
+                    // show node name and relationship
+                    const relationship = getRelationship(d.distance, d.edgeType);
+                    let contents = `<h3> ${d.data.data.code}</h3>`;
+                    contents += `<p>${relationship}</p>`;
+                    contents += `<p> ${d.data.data.description}</p>`;
+                    return contents;
+                }
+                if (d.data && d.data.data) {
+                    return d.data.data.description;
+                }
+            }
+            if (d.data.name !== null) {
+                return `<strong>${d.data.name}</strong>`;
+            }
+            if (!d.children && (d.data && d.data.data)) {
+                // show node name and relationship
+                let contents = `<h3>${d.data.data.code}</h3>`;
+                contents += `<p>${d.data.data.description}</p>`;
+                return contents;
+            }
+            if (d.data && d.data.data) {
+                return d.data.data.description;
             }
         });
 }

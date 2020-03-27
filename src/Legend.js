@@ -16,7 +16,7 @@ export default function Legend() {
     function renderRelated() {
         return (
             <svg height="36" width="36" className="legendItem">
-                <circle r="15" cx="18" cy="18" className="non-directional-example" fill={RELATED(1)}></circle>
+                <circle r="15" cx="18" cy="18" className="non-directional-example" fill={RELATED(3)}></circle>
             </svg>
         );
     }

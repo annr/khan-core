@@ -239,8 +239,15 @@ export default class Grades extends React.Component {
             .attr("id", (d) => `tooltip-${d.data.id}`)
             .attr("class", "tooltip")
             .html((d) => {
+
                 if (d.data.name !== null) {
                     return `<strong>${d.data.name}</strong>`;
+                }
+                if (!d.children && (d.data && d.data.data)) {
+                    // show node name and relationship
+                    let contents = `<h3>${d.data.data.code}</h3>`;
+                    contents += `<p>${d.data.data.description}</p>`;
+                    return contents;
                 }
                 if (d.data && d.data.data) {
                     return d.data.data.description;
