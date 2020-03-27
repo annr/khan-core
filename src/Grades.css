@@ -54,15 +54,25 @@
 }
 
 .gradeHeading {
-    fill: rgb(84, 170, 184);
+    fill: #aaa;
     font-family: "Nunito", sans-serif;
     font-weight: 600;
 }
 
-.node--cluster-major, .node--cluster-additional, .node--cluster-supporting {
-    opacity: 0.6;
+.node--cluster-major {
+    fill: rgb(110, 199, 110);
+    opacity: 0.8;
+}
+.node--cluster-additional {
+    fill: dodgerblue;
+    opacity: 0.4;
+}
+.node--cluster-supporting {
+    fill: rgb(248, 220, 60);
+    opacity: 0.8;
 }
 
 .node--has-topics {
-    opacity: 0.75;
+    fill: white;
+    opacity: 0.25;
 }

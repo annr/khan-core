@@ -5,7 +5,7 @@ const PREREQS = scaleLinear().domain([1, 6])
     .range(["mediumorchid", "#fcdef1"]);
 
 const ENABLED = scaleLinear().domain([1, 6])
-    .range(["gold", "lightgoldenrodyellow"]);
+    .range(["#ff9933", "lightgoldenrodyellow"]);
 
 const RELATED = scaleLinear().domain([1, 6])
     .range(["#9db8e0", "white"]);

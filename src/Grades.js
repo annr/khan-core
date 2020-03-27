@@ -53,7 +53,7 @@ export default class Grades extends React.Component {
 
         var color = scaleLinear()
             .domain([-1, 5])
-            .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+            .range(["#bbb", "#999"])
             .interpolate(interpolateHcl);
 
         data.forEach((grade, i) => {
@@ -96,6 +96,9 @@ export default class Grades extends React.Component {
                     const genericClass = "node";
                     if (d.depth === 0) {
                         return genericClass + " node--root";
+                    }
+                    if (d.depth === 1) {
+                        return genericClass + " node--area";
                     }
                     if (d.depth === 2) {
                         if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
@@ -146,26 +149,17 @@ export default class Grades extends React.Component {
                 })
                 .style("fill", function (d) {
                     if (d.depth === 2) {
-                        if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
-                        return `url(#${d.data.data.clusterType})`;
+                        // if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
+                        // return `url(#${d.data.data.clusterType})`;
+                        return null;
                     }
                     // Hard-code (not ideal) the bgcolor for grouped standards --
                     // standards that have "standard topics" or bullet points
                     // Ex. K.CC.4 has K.CC.4.a, K.CC.4.b, and K.CC.4.c
                     if (d.depth === 3 && d.children) {
-                        return "#92BFCC";
+                        return "#fff";
                     }
                     return d.children ? color(d.depth) : null;
-                })
-                .attr("stroke-width", function (d) {
-                    if (d.depth === 2) {
-                        return 0.5;
-                    }
-                })
-                .attr("stroke", function (d) {
-                    if (d.depth === 2) {
-                        return "hsl(228,30%,40%)";
-                    }
                 });
 
             g.append("text")
