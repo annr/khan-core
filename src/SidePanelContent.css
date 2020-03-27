@@ -65,14 +65,14 @@ dl#topics div.selectedTopic {
 }
 
 .cluster-major {
-    background-color:rgb(214, 245, 208);
+    background-color:#b6e0b5;
 }
 
 .cluster-additional {
-    background-color:rgb(214, 231, 250)
+    background-color: #bdd6f2;
 }
 
 .cluster-supporting {
-    background-color:rgb(253, 241, 214);
+    background-color:#f7eaa1;
 }
     

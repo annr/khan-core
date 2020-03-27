@@ -70,7 +70,7 @@ export default class Grades extends React.Component {
             // the reason we set label sizes relative to the circle is because the 
             // media query will change when the window is expanded, but the circle
             // size will not. These are ems.
-            const labelSize = (Math.floor(layouts[i][2] / 12) - 10) / 100;
+            const labelSize = (Math.floor(layouts[i][2] / 12) - 10) / 80;
             const gradeHeadingSize = (Math.ceil(layouts[i][2] / 30)) / 10;
 
             packLayout.size([layouts[i][2], layouts[i][2]])
@@ -173,9 +173,14 @@ export default class Grades extends React.Component {
                 })
                 .style("font-size", (d) => {
                     if (!d.children) {
-                        const tooWideLabels = ["NBT.A.3.a", "NBT.A.3.b"];
-                        if (tooWideLabels.indexOf(d.data.data.codeTrimmed) !== -1) {
-                            const shrunkLabelSize = labelSize * 0.9
+                        // generally use labelSize calculated from layout, but if the
+                        // leaf node is too small, we need to adjust it down.
+                        if (d.r < 30) {
+                            const shrunkLabelSize = labelSize * 0.7;
+                            return shrunkLabelSize + "em";
+                        }
+                        if (d.r < 35) {
+                            const shrunkLabelSize = labelSize * 0.8;
                             return shrunkLabelSize + "em";
                         }
                         return labelSize + "em";

@@ -74,5 +74,9 @@
 
 .node--has-topics {
     fill: white;
-    opacity: 0.25;
+    opacity: 0.3;
+}
+
+.diminished-node {
+    fill: #e9e9e9;
 }

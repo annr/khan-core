@@ -5,6 +5,7 @@ export const unsetConnected = function (currentNode) {
     selectAll(".standard")
         .classed("selected-node", false)
         .classed("non-directional", false)
+        .classed("diminished-node", false)
         .style("fill", null)
         .attr("filter", null);
 
@@ -49,6 +50,9 @@ const highlightConnected = function (node, NODES, LINKS) {
 
     // this stays highlighted until the user selects another
     selectAll(".standard")
+        .classed("diminished-node", (d) => {
+            return d.distance === null;
+        })
         .classed("selected-node", (d) => d.distance === 0)
         .classed("non-directional", (d) => {
             if (d.distance && (Math.abs(d.distance) > 0) && d.edgeType === "non-directional") {
