@@ -76,13 +76,6 @@ const highlightConnected = function (node, NODES, LINKS) {
                 return true;
             }
         })
-        .attr("r", (d) => {
-            if (d.distance === 0) {
-                // make selected node slightly smaller to accomodate thick stroke
-                return d.r - 5;
-            }
-            return d.r;
-        })
         .style("fill", function (d) {
             if (Math.abs(d.distance) > 8) {
                 d.distance = 5;
@@ -96,12 +89,12 @@ const highlightConnected = function (node, NODES, LINKS) {
             }
         })
         .attr("filter", (d) => {
-            if (d.distance < 0) {
-                return "url(#inset-shadow)";
-            }
-            if (d.distance > 0) {
-                return "url(#raised)";
-            }
+            // if (d.distance < 0) {
+            //     return "url(#inset-shadow)";
+            // }
+            // if (d.distance > 0) {
+            //     return "url(#raised)";
+            // }
         });
 
 

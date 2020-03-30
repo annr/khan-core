@@ -18,19 +18,13 @@
 }
 
 .selected-node {
-    stroke-width: 10px;
-    stroke: url(#rainbow);
-}
-
-.selected-node:hover {
-    stroke-width: 10px;
-    stroke: url(#rainbow);
+    stroke-width: 4px;
 }
 
 .non-directional {
-    stroke-dasharray: 6 6;
+    stroke-dasharray: 3 9;
     stroke: black;
-    stroke-width: 4;
+    stroke-width: 3;
 }
 
 .non-directional:hover {
@@ -54,7 +48,7 @@
 }
 
 .gradeHeading {
-    fill: #aaa;
+    fill: #999;
     font-family: "Nunito", sans-serif;
     font-weight: 600;
 }

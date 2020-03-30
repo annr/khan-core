@@ -2,33 +2,36 @@
 #legend {
     bottom: 0;
     right: 0;
-    width: 190px;
+    width: 200px;
     border-radius: 10px 0 0;
     border: 1px solid #ccc;
+    padding: 8px 6px 8px 14px;
 }
 
 #legendToggleIcon {
-    left: 4px;
-    top: 8px;
+    left:3px;
+    top: 4px;
 }
 
 .legend-open {
     height: 348px;
+    overflow-y: hidden;
 }
 
 .legend-closed {
     height: 22px;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .legendOpen {
     transition: all 0.5s ease;
-    transform: rotate(-180deg);
+    transform: rotate(-180deg) scale(0.8);
 }
 
 .legendClosed {
     transition: all 0.5s ease;
-    transform: rotate(-270deg);
+    transform: rotate(-270deg) scale(0.8);
 }
 
 #legend dl {
@@ -38,7 +41,7 @@
 
 #legend dl dt {
     font-size: 1.5em;
-    margin: 3px 0 18px 24px;
+    margin: 3px 0 18px 25px;
     font-weight: bold;
     font-family: "Nunito", sans-serif;
 }
@@ -57,30 +60,15 @@
 }
 
 .selected-node-example {
-    stroke-width: 5px;
+    stroke-width: 2px;
     stroke: url(#rainbow);
     fill: none;
 }
 
-.selectedRing-example {
-    stroke: black;
-    stroke-width: 2;
-    opacity: 1;
-    fill: none;
-}
-
 .non-directional-example {
-    stroke-dasharray: 2 2;
+    stroke-dasharray: 2 6;
     stroke: black;
     stroke-width: 2;
-}
-
-.prerequisite-example {
-    filter: url(#inset-shadow-example);
-}
-
-.enabled-example {
-    filter: url(#raised-example);
 }
 
 .major-example {

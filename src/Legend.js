@@ -7,16 +7,15 @@ export default function Legend() {
     function renderSelected() {
         return (
             <svg height="36" width="36" className="legendItem">
-                <circle r="12" cx="18" cy="18" className="selected-node-example"></circle>
-                <circle r="15" cx="18" cy="18" className="selectedRing-example"></circle>
+                <circle r="14" cx="18" cy="18" fill="white" stroke="black" stroke-width="3"></circle>
             </svg>
         );
     }
 
-    function renderRelated() {
+    function renderConcurrent() {
         return (
-            <svg height="36" width="36" className="legendItem">
-                <circle r="15" cx="18" cy="18" className="non-directional-example" fill={RELATED(3)}></circle>
+            <svg height="38" width="38" className="legendItem">
+                <circle r="14" cx="18" cy="18" className="non-directional-example" fill={RELATED(3)}></circle>
             </svg>
         );
     }
@@ -29,9 +28,9 @@ export default function Legend() {
         );
     }
 
-    function renderEnabled() {
+    function renderPostrequisite() {
         return (
-            <svg height="40" width="40" className="legendItem">
+            <svg height="36" width="36" className="legendItem">
                 <circle r="15" cx="18" cy="18" className="enabled-example" fill={ENABLED(1)}></circle>
             </svg>
         );
@@ -73,15 +72,15 @@ export default function Legend() {
                     Legend
                 </dt>
                 <dl className="standardsList">
-                    <dd>{renderSelected()} selected</dd>
-                    <dd>{renderRelated()} related</dd>
-                    <dd>{renderPrerequisite()} prerequisite</dd>
-                    <dd>{renderEnabled()} enabled</dd>
+                    <dd>{renderSelected()} Selected</dd>
+                    <dd>{renderPrerequisite()} Pre-requisite</dd>
+                    <dd>{renderPostrequisite()} Post-requisite</dd>
+                    <dd>{renderConcurrent()} Related / Concurrent</dd>
                 </dl>
                 <dl className="clustersList">
-                    <dd>{renderMajor()} major cluster</dd>
-                    <dd>{renderAdditional()} additional cluster</dd>
-                    <dd>{renderSupporting()} supporting cluster</dd>
+                    <dd>{renderMajor()} Major cluster</dd>
+                    <dd>{renderAdditional()} Additional cluster</dd>
+                    <dd>{renderSupporting()} Supporting cluster</dd>
                 </dl>
             </dl>
         </div>
