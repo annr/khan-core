@@ -7,7 +7,7 @@ export default function Legend() {
     function renderSelected() {
         return (
             <svg height="36" width="36" className="legendItem">
-                <circle r="14" cx="18" cy="18" fill="white" stroke="black" stroke-width="3"></circle>
+                <circle r="14" cx="18" cy="18" fill="white" stroke="black" strokeWidth="3"></circle>
             </svg>
         );
     }

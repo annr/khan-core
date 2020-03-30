@@ -77,6 +77,10 @@ const highlightConnected = function (node, NODES, LINKS) {
             }
         })
         .style("fill", function (d) {
+            if (d.distance === 0) {
+                return "#fff";
+            }
+
             if (Math.abs(d.distance) > 8) {
                 d.distance = 5;
             }
@@ -89,12 +93,9 @@ const highlightConnected = function (node, NODES, LINKS) {
             }
         })
         .attr("filter", (d) => {
-            // if (d.distance < 0) {
-            //     return "url(#inset-shadow)";
-            // }
-            // if (d.distance > 0) {
-            //     return "url(#raised)";
-            // }
+            if (d.distance !== null) {
+                return "url(#raised)";
+            }
         });
 
 
