@@ -4,6 +4,7 @@
     width: 25%;
     min-width: 250px;
     max-width: 340px;
+    max-height: 90vh;
     border-radius: 0 0 10px;
 }
 
@@ -11,12 +12,11 @@
     height: 32px;
     overflow-x: hidden;
     overflow-y: hidden;
-    padding-top: 6px
+    padding-top: 6px;
 }
 
 .side-panel-open {
-    height: 450px;
-    padding-top: 24px
+    padding-top: 24px;
 }
 
 .sidePanelHeading {

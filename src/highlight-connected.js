@@ -1,4 +1,6 @@
 import { select, selectAll } from 'd3-selection';
+import { pointRadial } from 'd3-shape';
+import { easeLinear } from 'd3-ease';
 import { PREREQS, ENABLED, RELATED } from "./colors";
 
 export const unsetConnected = function (currentNode) {
@@ -10,6 +12,7 @@ export const unsetConnected = function (currentNode) {
         .attr("filter", null);
 
     select(currentNode).attr("r", (d) => d.r);
+    selectAll(".selectedIndicator").remove();
 }
 
 const getRelationship = (dist, edgeType) => {
@@ -28,6 +31,43 @@ const getRelationship = (dist, edgeType) => {
     }
     return `<b>${label}</b> standard <b>${step}</b> ${direction} selected`
 };
+
+function generateRadialLineData(radius, numberOfLines = 10) {
+    const lines = [];
+    for (let i = 0; i < numberOfLines; i++) {
+        let angle;
+        if (i === 0) {
+            angle = 0;
+        } else {
+            const step = 360 / numberOfLines;
+            angle = step * i;
+        }
+        const convertedAngle = angle * (Math.PI / 180);
+        const point = pointRadial(convertedAngle, radius);
+        lines.push(point);
+    }
+    return lines;
+}
+
+function addSelectedIndicator(node, parent) {
+    selectAll(".selectedIndicator").remove();
+    const data = generateRadialLineData(node.r + 5, 10);
+
+    select(parent).insert("g", ":first-child")
+        .attr("class", "selectedIndicator")
+        .selectAll("path")
+        .data(data)
+        .enter()
+        .append("path")
+        .attr("d", d => {
+            return `M ${node.x} ${node.y} l ${d[0]} ${d[1]}`
+        })
+        .transition()
+        .duration(200)
+        .ease(easeLinear)
+        .attr("stroke", "black")
+        .attr("stroke-width", 4);
+}
 
 const highlightConnected = function (node, NODES, LINKS) {
     // builds distance values for every node
@@ -76,13 +116,13 @@ const highlightConnected = function (node, NODES, LINKS) {
                 return true;
             }
         })
+        .transition()
+        .duration(600)
+        .ease(easeLinear)
         .style("fill", function (d) {
             if (d.distance === 0) {
+                addSelectedIndicator(d, this.parentNode);
                 return "#fff";
-            }
-
-            if (Math.abs(d.distance) > 8) {
-                d.distance = 5;
             }
             if (d.distance !== null && d.edgeType === "non-directional") {
                 return RELATED(Math.abs(d.distance));
@@ -93,11 +133,10 @@ const highlightConnected = function (node, NODES, LINKS) {
             }
         })
         .attr("filter", (d) => {
-            if (d.distance !== null) {
+            if (d.distance && Math.abs(d.distance) > 0) {
                 return "url(#raised)";
             }
         });
-
 
     selectAll(".tooltip")
         .html((d) => {
