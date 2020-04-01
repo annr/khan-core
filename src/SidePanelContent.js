@@ -3,11 +3,11 @@ import logo from './khan-academy-logo.svg';
 import "./SidePanelContent.css";
 
 // This transforms from an intro to the app to the details card
-export default function SidePanelContent() {
+export default function SidePanelContent(props) {
     return (
         <div id="panelConent">
             <div id="initialContent">
-                <h1 className="sidePanelHeading">Khan Core</h1>
+                <h1 className="sidePanelHeading" onClick={props.headingClick}>Khan Core</h1>
                 <h2 className="sidePanelSubheading">Find and fill math gaps in grades <span style={{ "whiteSpace": "nowrap" }}>K through 8.</span></h2>
                 <p>Use this map to explore grade school math content using using relationships built into the Common Core State Standards.</p>
                 <h3>To Use:</h3>

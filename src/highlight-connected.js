@@ -132,9 +132,14 @@ const highlightConnected = function (node, NODES, LINKS) {
                 return ENABLED(d.distance);
             }
         })
-        .attr("filter", (d) => {
+        .attr("stroke", (d) => {
             if (d.distance && Math.abs(d.distance) > 0) {
-                return "url(#raised)";
+                return "black";
+            }
+        })
+        .attr("stroke-width", (d) => {
+            if (d.distance && Math.abs(d.distance) > 0) {
+                return 1;
             }
         });
 

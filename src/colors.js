@@ -4,7 +4,7 @@ export const PREREQS = scaleLinear().domain([1, 6])
     .range(["mediumorchid", "#fcdef1"]);
 
 export const ENABLED = scaleLinear().domain([1, 6])
-    .range(["#ff9933", "#ff9933"]);
+    .range(["#ff9933", "#ffcc99"]);
 
 export const RELATED = scaleLinear().domain([1, 6])
     .range(["#ff9999", "white"]);
