@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import "./Legend.css"
 import { PREREQS, ENABLED, RELATED } from "./colors";
 
+// test
+
 export default function Legend() {
-    const [isOpen, toggle] = useState(false);
+    const [isOpen, toggle] = useState(window.innerHeight > 900 && window.innerWidth > 900 ? true : false);
     function renderSelected() {
         return (
             <svg height="36" width="36" className="legendItem">

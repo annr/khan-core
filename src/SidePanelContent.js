@@ -24,7 +24,7 @@ export default function SidePanelContent(props) {
                     </a>
                 </p>
             </div>
-            <div id="selectedStandardHeadingWrapper"></div>
+            <div id="selectedStandardHeadingWrapper" onClick={props.headingClick}></div>
             <div id="dynamicContent">
                 <div id="cluster">
                     <strong id="clusterType"></strong><br />

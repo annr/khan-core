@@ -102,12 +102,13 @@ export default class Grades extends React.Component {
                     }
                     if (d.depth === 2) {
                         if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
-                        return `${genericClass} node--cluster-${d.data.data.clusterType}`;
+                        return `${genericClass} node--cluster node--cluster-${d.data.data.clusterType}`;
                     }
                     if (d.depth === 3 && d.children) {
                         return `${genericClass} node--has-topics`;
                     }
                     if (!d.children) {
+                        // select(this.parentNode.className).classed("leaf-group");
                         return `${genericClass} node--leaf standard`;
                     }
                     return genericClass;
@@ -148,18 +149,38 @@ export default class Grades extends React.Component {
                     }
                 })
                 .style("fill", function (d) {
-                    if (d.depth === 2) {
-                        // if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
-                        // return `url(#${d.data.data.clusterType})`;
-                        return null;
-                    }
+                    // if (d.depth === 2) {
+                    //     if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
+                    //     return `url(#${d.data.data.clusterType})`;
+                    // }
                     // Hard-code (not ideal) the bgcolor for grouped standards --
                     // standards that have "standard topics" or bullet points
                     // Ex. K.CC.4 has K.CC.4.a, K.CC.4.b, and K.CC.4.c
+
+                    if (d.depth === 3 && !d.children) {
+                        return "#fff";
+                    }
+
                     if (d.depth === 3 && d.children) {
+                        return null;
+                    }
+
+                    if (d.depth === 2) {
                         return "#fff";
                     }
                     return d.children ? color(d.depth) : null;
+                })
+                .attr("stroke-width", d => {
+                    if (d.depth === 2) {
+                        if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
+                        if (d.data.data.clusterType === "major") {
+                            return majorStrokeWidth;
+                        } else if (d.data.data.clusterType === "additional") {
+                            return additionalStrokeWidth;
+                        } else if (d.data.data.clusterType === "supporting") {
+                            return supportingStrokeWidth;
+                        }
+                    }
                 });
 
             g.append("text")
@@ -176,11 +197,15 @@ export default class Grades extends React.Component {
                         // generally use labelSize calculated from layout, but if the
                         // leaf node is too small, we need to adjust it down.
                         if (d.r < 30) {
-                            const shrunkLabelSize = labelSize * 0.7;
+                            const shrunkLabelSize = labelSize * 0.6;
                             return shrunkLabelSize + "em";
                         }
                         if (d.r < 35) {
-                            const shrunkLabelSize = labelSize * 0.8;
+                            const shrunkLabelSize = labelSize * 0.7;
+                            return shrunkLabelSize + "em";
+                        }
+                        if (d.data.data.codeTrimmed.length >= 8) {
+                            const shrunkLabelSize = labelSize * 0.90;
                             return shrunkLabelSize + "em";
                         }
                         return labelSize + "em";

@@ -4,7 +4,6 @@
     width: 25%;
     min-width: 250px;
     max-width: 340px;
-    max-height: 90vh;
     border-radius: 0 0 10px;
 }
 
@@ -17,6 +16,8 @@
 
 .side-panel-open {
     padding-top: 24px;
+    max-height: 90vh;
+    height: 550px;
 }
 
 .sidePanelHeading {

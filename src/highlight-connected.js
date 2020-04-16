@@ -9,6 +9,7 @@ export const unsetConnected = function (currentNode) {
         .classed("non-directional", false)
         .classed("diminished-node", false)
         .style("fill", null)
+        .attr("stroke", "none")
         .attr("filter", null);
 
     select(currentNode).attr("r", (d) => d.r);

@@ -32,8 +32,13 @@
 }
 
 .node--leaf {
+    cursor: pointer;
     fill: white;
     opacity: 1;
+}
+
+.node--cluster {
+    stroke:#000;
 }
 
 #selectedRing {
