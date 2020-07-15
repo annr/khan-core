@@ -11,7 +11,7 @@ class App extends React.Component {
         {/* <h1>Khan Academy Common Core</h1> */}
         <SidePanel />
         <Container />
-        <Legend />
+        {/* <Legend /> */}
       </React.Fragment>
     );
   }
