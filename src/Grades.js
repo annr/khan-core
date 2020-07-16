@@ -169,19 +169,19 @@ export default class Grades extends React.Component {
                         return "#fff";
                     }
                     return d.children ? color(d.depth) : null;
-                })
-                .attr("stroke-width", d => {
-                    if (d.depth === 2) {
-                        if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
-                        if (d.data.data.clusterType === "major") {
-                            return majorStrokeWidth;
-                        } else if (d.data.data.clusterType === "additional") {
-                            return additionalStrokeWidth;
-                        } else if (d.data.data.clusterType === "supporting") {
-                            return supportingStrokeWidth;
-                        }
-                    }
                 });
+            // .attr("stroke-width", d => {
+            //     if (d.depth === 2) {
+            //         if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
+            //         if (d.data.data.clusterType === "major") {
+            //             return majorStrokeWidth;
+            //         } else if (d.data.data.clusterType === "additional") {
+            //             return additionalStrokeWidth;
+            //         } else if (d.data.data.clusterType === "supporting") {
+            //             return supportingStrokeWidth;
+            //         }
+            //     }
+            // });
 
             g.append("text")
                 .attr("text-anchor", "middle")
