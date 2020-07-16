@@ -6,6 +6,7 @@
 .label {
     text-anchor: middle;
     pointer-events: none;
+    opacity: 0.8;
 }
 
 .node--leaf:hover {
@@ -76,4 +77,15 @@
 
 .diminished-node {
     opacity: 0.5;
+}
+
+.steps-from-selected {
+    fill:#fff;
+    opacity: 0.6;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.unrelated-label {
+    opacity: 0.4;
 }

@@ -5,7 +5,8 @@ import { PREREQS, ENABLED, RELATED } from "./colors";
 // test
 
 export default function Legend() {
-    const [isOpen, toggle] = useState(window.innerHeight > 900 && window.innerWidth > 900 ? true : false);
+    // const [isOpen, toggle] = useState(window.innerHeight > 900 && window.innerWidth > 900 ? true : false);
+    const [isOpen, toggle] = useState(false ? true : false);
     function renderSelected() {
         return (
             <svg height="36" width="36" className="legendItem">
@@ -81,8 +82,8 @@ export default function Legend() {
                 </dl>
                 <dl className="clustersList">
                     <dd>{renderMajor()} Major cluster</dd>
-                    <dd>{renderAdditional()} Additional cluster</dd>
                     <dd>{renderSupporting()} Supporting cluster</dd>
+                    <dd>{renderAdditional()} Additional cluster</dd>
                 </dl>
             </dl>
         </div>

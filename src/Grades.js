@@ -79,7 +79,7 @@ export default class Grades extends React.Component {
             // the reason we set label sizes relative to the circle is because the 
             // media query will change when the window is expanded, but the circle
             // size will not. These are ems.
-            const labelSize = (Math.floor(layouts[i][2] / 12) - 10) / 80;
+            const labelSize = (Math.floor(layouts[i][2] / 12) - 10) / 60;
             const gradeHeadingSize = (Math.ceil(layouts[i][2] / 30)) / 8;
 
             packLayout.size([layouts[i][2], layouts[i][2]])
@@ -191,6 +191,26 @@ export default class Grades extends React.Component {
                 .attr("stroke", d => {
                     if (d.depth === 2) {
                         return "#aaa";
+                    }
+                });
+
+            g.append("text")
+                .attr("text-anchor", "middle")
+                .attr("x", function (d) { return d.x; })
+                .attr("y", function (d) { return d.y; })
+                .attr("dy", "0.355em")
+                .attr("class", "steps-from-selected")
+                .attr("id", (d) => {
+                    return `leaf-node-steps-${d.data.id}`
+                })
+                .style("font-size", (d) => {
+                    if (!d.children) {
+                        return (d.r * 2) + 5 + "px";
+                    }
+                })
+                .text((d) => {
+                    if (!d.children) {
+                        return "";
                     }
                 });
 

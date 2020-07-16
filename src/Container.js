@@ -14,21 +14,19 @@ export default class Container extends React.Component {
     constructor(props) {
         super(props);
         this.createZoom = this.createZoom.bind(this);
-        // this.handleResize = this.handleResize.bind(this)
         this.state = { width: window.innerWidth };
     };
 
     componentDidMount() {
         this.createZoom();
-        window.addEventListener('resize', this.handleResize);
+
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleResize);
-    }
+    // componentWillUnmount() {
+    // }
 
-    // handleResize() {
-    //     //this.setState({ width: window.innerWidth });
+    // easeOut() {
+    //     const canvasNode = select(canvas);
     // }
 
     componentDidUpdate() {
@@ -42,8 +40,11 @@ export default class Container extends React.Component {
         const gradesNode = select(grades);
         const canvasNode = select(canvas);
 
+        // set the scale extent first value to be able to fit 9 grades
+        // for the ease out later below.
+
         var zoom = d3.zoom()
-            .scaleExtent([0.2, 5])
+            .scaleExtent([0.15, 5])
             .on('zoom', zoomed);
 
         canvasNode.call(zoom);
@@ -51,6 +52,13 @@ export default class Container extends React.Component {
         function zoomed() {
             gradesNode.attr("transform", event.transform);
         }
+
+        // do it
+        setTimeout(() => {
+            zoom.scaleBy(canvasNode.transition().duration(3000), 0.15);
+        }, 1000);
+
+
     }
 
     renderGrades() {

@@ -1,9 +1,9 @@
 /* #legend has some custom styles beyond what it inherits from .panel */
 #legend {
-    bottom: 0;
-    right: 0;
+    bottom: 10px;
+    right: 10px;
     width: 200px;
-    border-radius: 10px 0 0;
+    border-radius: 10px;
     border: 1px solid #ccc;
     padding: 8px 6px 8px 14px;
 }
@@ -19,7 +19,7 @@
 }
 
 .legend-closed {
-    height: 22px;
+    height: 26px;
     overflow-x: hidden;
     overflow-y: hidden;
 }
@@ -72,14 +72,18 @@
 }
 
 .major-example {
-    fill: #84ca83;
+    stroke-width: 6;
+    stroke: #888;
+    fill: #c7c7c7;
 }
 
 .additional-example {
-    fill: #90bce9
+    fill: #c7c7c7;
 }
 
 .supporting-example {
-    fill: #f2db5f
+    stroke-width: 3;
+    stroke: #888;
+    fill:#c7c7c7;
 }
 

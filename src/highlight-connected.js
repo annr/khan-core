@@ -144,6 +144,26 @@ const highlightConnected = function (node, NODES, LINKS) {
             }
         });
 
+    selectAll(".label")
+        .classed("selected-label", (d) => d.distance === 0)
+        .classed("related-label", (d) => d.distance !== null)
+        .classed("unrelated-label", (d) => d.distance == null);
+
+    selectAll(".steps-from-selected")
+        .text((d) => {
+            const absDist = Math.abs(d.distance);
+            if (d.distance === 0) {
+                return "";
+            }
+            if (d.distance !== null && d.edgeType === "non-directional") {
+                return absDist;
+            } else if (d.distance < 0) {
+                return absDist;
+            } else if (d.distance > 0) {
+                return absDist;
+            }
+        })
+
     selectAll(".tooltip")
         .html((d) => {
             // if it's a leaf node, highlight the any relationship in the tooltip
