@@ -1,6 +1,7 @@
 #side-panel {
     transition: all 0.5s ease;
-    top: 0;
+    bottom: 0;
+    right: 0;
     width: 25%;
     min-width: 250px;
     max-width: 340px;

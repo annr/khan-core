@@ -1,10 +1,6 @@
-.grades {
-    background-color: pink;
-}
-
 .node {
     cursor: pointer;
-    opacity: 0.3;
+    opacity: 0.4;
 }
 
 .label {
@@ -38,7 +34,7 @@
 }
 
 .node--cluster {
-    stroke:#000;
+    stroke:#333;
 }
 
 #selectedRing {
@@ -52,6 +48,7 @@
     fill: none;
 }
 
+
 .gradeHeading {
     fill: #999;
     font-family: "Nunito", sans-serif;
@@ -60,22 +57,23 @@
 
 .node--cluster-major {
     fill: rgb(110, 199, 110);
-    opacity: 0.8;
+
 }
 .node--cluster-additional {
     fill: dodgerblue;
-    opacity: 0.4;
+
 }
 .node--cluster-supporting {
     fill: rgb(248, 220, 60);
-    opacity: 0.8;
+
 }
 
 .node--has-topics {
-    fill: white;
+    fill: #fff;
     opacity: 0.3;
+
 }
 
 .diminished-node {
-    fill: #d9d9d9;
+    opacity: 0.5;
 }

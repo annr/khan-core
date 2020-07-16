@@ -8,7 +8,7 @@ import Grades from "./Grades";
 import Tooltips from "./Tooltips";
 
 import "./Container.css";
-import { getTransformsAndWidths } from "./responsiveLayout.js";
+import { getTransformsAndWidths } from "./horizontalLayout.js";
 
 export default class Container extends React.Component {
     constructor(props) {

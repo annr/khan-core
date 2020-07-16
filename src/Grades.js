@@ -8,7 +8,7 @@ import { interpolateHcl } from "d3-interpolate";
 import data from "./data/ccssm-flare.json";
 import cc from "./data/cc.json";
 
-import updateSidePanel, { resetSidePanel } from "./update-side-panel";
+// import updateSidePanel, { resetSidePanel } from "./update-side-panel";
 import highlightConnected, { unsetConnected } from "./highlight-connected";
 
 import "./Grades.css";
@@ -20,6 +20,10 @@ import "./Grades.css";
 // we build them manually here as a hack
 const CC_CONNECTION_NODES = [];
 const CC_LINKS = [];
+
+const majorStrokeWidth = 10;
+const additionalStrokeWidth = 0;
+const supportingStrokeWidth = 6;
 
 export default class Grades extends React.Component {
 
@@ -37,6 +41,11 @@ export default class Grades extends React.Component {
         const layouts = this.props.layouts;
         const grades = this.container;
 
+        // var color = scaleLinear()
+        //     .domain([-1, 5])
+        //     .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+        //     .interpolate(interpolateHcl);
+
         // first create the containers for the grades with their attributes set
         select(grades)
             .selectAll("g")
@@ -53,7 +62,7 @@ export default class Grades extends React.Component {
 
         var color = scaleLinear()
             .domain([-1, 5])
-            .range(["#bbb", "#999"])
+            .range(["#efefef", "#666"])
             .interpolate(interpolateHcl);
 
         data.forEach((grade, i) => {
@@ -71,7 +80,7 @@ export default class Grades extends React.Component {
             // media query will change when the window is expanded, but the circle
             // size will not. These are ems.
             const labelSize = (Math.floor(layouts[i][2] / 12) - 10) / 80;
-            const gradeHeadingSize = (Math.ceil(layouts[i][2] / 30)) / 10;
+            const gradeHeadingSize = (Math.ceil(layouts[i][2] / 30)) / 8;
 
             packLayout.size([layouts[i][2], layouts[i][2]])
                 .padding(padding);
@@ -131,10 +140,10 @@ export default class Grades extends React.Component {
                         select("#selectedRing").remove();
                         const classNames = this.className.baseVal;
                         if (classNames.indexOf('selected-node') !== -1) {
-                            resetSidePanel(d);
+                            // resetSidePanel(d);
                             unsetConnected(this);
                         } else {
-                            updateSidePanel(d);
+                            // updateSidePanel(d);
                             highlightConnected(d, CC_CONNECTION_NODES, CC_LINKS);
 
                             select(this.parentNode)
@@ -165,23 +174,25 @@ export default class Grades extends React.Component {
                         return null;
                     }
 
-                    if (d.depth === 2) {
-                        return "#fff";
-                    }
                     return d.children ? color(d.depth) : null;
+                })
+                .attr("stroke-width", d => {
+                    if (d.depth === 2) {
+                        if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
+                        if (d.data.data.clusterType === "major") {
+                            return majorStrokeWidth;
+                        } else if (d.data.data.clusterType === "additional") {
+                            return additionalStrokeWidth;
+                        } else if (d.data.data.clusterType === "supporting") {
+                            return supportingStrokeWidth;
+                        }
+                    }
+                })
+                .attr("stroke", d => {
+                    if (d.depth === 2) {
+                        return "#aaa";
+                    }
                 });
-            // .attr("stroke-width", d => {
-            //     if (d.depth === 2) {
-            //         if (!d.data.data.clusterType) throw new Error("This level needs a cluster type");
-            //         if (d.data.data.clusterType === "major") {
-            //             return majorStrokeWidth;
-            //         } else if (d.data.data.clusterType === "additional") {
-            //             return additionalStrokeWidth;
-            //         } else if (d.data.data.clusterType === "supporting") {
-            //             return supportingStrokeWidth;
-            //         }
-            //     }
-            // });
 
             g.append("text")
                 .attr("text-anchor", "middle")
@@ -281,7 +292,7 @@ export default class Grades extends React.Component {
     }
 
     addCirclePathGradeName(i, nodes, gradeHeadingSize) {
-        const positionTopRightQuadrant = "33%";
+        const positionTopRightQuadrant = "10%";
         select(`#grade-${i}`)
             .selectAll("g")
             .data(nodes).append("path")
