@@ -4,11 +4,13 @@ import React from "react";
 // TODO (ann): Figure this out later!
 import * as d3 from "d3";
 import { select, event } from 'd3-selection';
+import { easeQuadOut } from 'd3-ease';
 import Grades from "./Grades";
+import Details from "./Details";
 import Tooltips from "./Tooltips";
 
 import "./Container.css";
-import { getTransformsAndWidths } from "./horizontalLayout.js";
+import { getTransformsAndWidths, getOffsetStart } from "./horizontalLayout.js";
 
 export default class Container extends React.Component {
     constructor(props) {
@@ -19,15 +21,7 @@ export default class Container extends React.Component {
 
     componentDidMount() {
         this.createZoom();
-
     }
-
-    // componentWillUnmount() {
-    // }
-
-    // easeOut() {
-    //     const canvasNode = select(canvas);
-    // }
 
     componentDidUpdate() {
         this.createZoom();
@@ -40,11 +34,10 @@ export default class Container extends React.Component {
         const gradesNode = select(grades);
         const canvasNode = select(canvas);
 
-        // set the scale extent first value to be able to fit 9 grades
+        // set the scale extent first value to be able to fit 9 grades @~920 each
         // for the ease out later below.
-
         var zoom = d3.zoom()
-            .scaleExtent([0.15, 5])
+            .scaleExtent([0.125, 5])
             .on('zoom', zoomed);
 
         canvasNode.call(zoom);
@@ -55,10 +48,16 @@ export default class Container extends React.Component {
 
         // do it
         setTimeout(() => {
-            zoom.scaleBy(canvasNode.transition().duration(3000), 0.15);
+            zoom.scaleBy(canvasNode.transition().ease(easeQuadOut).duration(3000), 0.125);
+            setTimeout(() => {
+                const title = document.getElementById("khan-core-title");
+                title.style.fill = "black";
+                setTimeout(() => {
+                    const title = document.getElementById("khan-core-subtitle");
+                    title.style.fill = "black";
+                }, 2000);
+            }, 4000);
         }, 1000);
-
-
     }
 
     renderGrades() {
@@ -74,6 +73,48 @@ export default class Container extends React.Component {
         const layouts = getTransformsAndWidths(gradeCount, width);
 
         return <Grades layouts={layouts} />;
+    }
+
+    // we'll use a helper from horizontalLayout to align title generally with horizontal grades
+    renderTitle() {
+        const width = this.state.width;
+        const gradeCount = 9; // show grades K - 8 for now.
+
+        // until we know the window width, don't add anything.
+        if (width === 0) {
+            return null;
+        }
+
+        const titlePosition = [-getOffsetStart(width, gradeCount), -400];
+
+        // we don't want the begining of the title to be at the very left edge, because
+        // sometime that side gets cut off!
+        titlePosition[0] += 500;
+
+        console.log(titlePosition);
+        return (
+            <g>
+                <text id="khan-core-title" className="khan-core-title" fill="black" x={titlePosition[0] + ""} y={titlePosition[1]}>
+                    Khan Core
+                </text>
+                <text id="khan-core-subtitle" className="khan-core-subtitle" fill="black" x={titlePosition[0] + 1900 + ""} y={titlePosition[1]}>
+                    Common Core Math + Khan Academy
+                </text>
+            </g>
+        );
+    }
+
+    // we'll use a helper from horizontalLayout to align title generally with horizontal grades
+    renderDetailAreas() {
+        const width = this.state.width;
+        const gradeCount = 9; // show grades K - 8 for now.
+
+        // until we know the window width, don't add anything.
+        if (width === 0) {
+            return null;
+        }
+        const layouts = getTransformsAndWidths(gradeCount, width);
+        return <Details layouts={layouts} grades={[...Array(9).keys()]} />;
     }
 
     render() {
@@ -116,7 +157,9 @@ export default class Container extends React.Component {
                             </feMerge>
                         </filter>
                         <g ref={grades => this.grades = grades}>
+                            {this.renderTitle()}
                             {this.renderGrades()}
+                            {this.renderDetailAreas()}
                         </g>
                     </svg>
                 </div>

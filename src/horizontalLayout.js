@@ -1,19 +1,25 @@
 
 
 const GRADE_WIDTH_START = 920;
+const GUTTER = 40;
 
+function getTotalWidth(gradeWidth, gradesLength) {
+    return (gradeWidth * gradesLength) + (GUTTER * (gradesLength - 1));
+}
+
+export function getOffsetStart(windowWidth, gradesLength) {
+    const totalWidth = getTotalWidth(GRADE_WIDTH_START, gradesLength);
+    return (totalWidth - windowWidth) / 2;
+}
 
 export function getTransformsAndWidths1Row(gradesLength, windowWidth) {
-    const gradeWidth = GRADE_WIDTH_START;
     const transformsAndWidth = [];
-    const gutter = 40;
-    const totalWidth = (gradeWidth * gradesLength) + (gutter * (gradesLength - 1));
-    const offsetStart = (totalWidth - windowWidth) / 2;
+    const offsetStart = getOffsetStart(windowWidth, gradesLength);
 
     for (let i = 0; i < gradesLength; i++) {
-        let x = (i * (gradeWidth + gutter)) - offsetStart;
+        let x = (i * (GRADE_WIDTH_START + GUTTER)) - offsetStart;
         const y = 50;
-        transformsAndWidth.push([x, y, gradeWidth]);
+        transformsAndWidth.push([x, y, GRADE_WIDTH_START]);
     }
     return transformsAndWidth;
 }

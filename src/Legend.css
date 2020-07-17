@@ -1,7 +1,7 @@
 /* #legend has some custom styles beyond what it inherits from .panel */
 #legend {
-    bottom: 10px;
-    right: 10px;
+    bottom: 0;
+    right: 0;
     width: 200px;
     border-radius: 10px;
     border: 1px solid #ccc;
