@@ -1,15 +1,11 @@
 /* We can't update the side panel with React, so this is quite tedious */
 
 export const resetDetailAreas = function () {
-    // const initialContent = document.getElementById("initialContent");
-    // initialContent.style.display = "block";
-    // const dynamicContent = document.getElementById("dynamicContent");
-    // dynamicContent.style.display = "none";
-    // const selectedStandardHeading = document.getElementById("selectedStandardHeadingWrapper");
-    // selectedStandardHeading.style.display = "none";
-
-    // todo
-
+    const grades = [...Array(9).keys()];
+    grades.forEach((grade) => {
+        const detailArea = document.getElementById(`details-${grade}`);
+        detailArea.innerHTML = "";
+    });
 }
 
 const updateDetails = function (d) {
@@ -62,7 +58,8 @@ const updateDetails = function (d) {
 
     if (kaLinks.length) {
         kaLinksList = `<div id="khanContent" style="display: block;">
-            <ul>
+        <img src="/khancore/static/media/khan-academy-logo.b170a438.svg" alt="Khan Academy" width="192" height="42">
+            <ul id="khanContentLinks">
                 ${kaLinks.join("")}
             </ul>
         </div>`;
@@ -85,7 +82,12 @@ const updateDetails = function (d) {
         </div>
     `;
 
-    const detailsElement = document.getElementById('details-0');
+    let gradeId = node.data.data.code.charAt(0);
+    if (gradeId === "K") {
+        gradeId = "0";
+    }
+
+    const detailsElement = document.getElementById(`details-${gradeId}`);
     detailsElement.innerHTML = template;
 
 }

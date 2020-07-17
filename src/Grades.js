@@ -141,9 +141,10 @@ export default class Grades extends React.Component {
                         select("#selectedRing").remove();
                         const classNames = this.className.baseVal;
                         if (classNames.indexOf('selected-node') !== -1) {
-                            // resetSidePanel(d);
+                            resetDetailAreas();
                             unsetConnected(this);
                         } else {
+                            resetDetailAreas();
                             updateDetails(d);
                             highlightConnected(d, CC_CONNECTION_NODES, CC_LINKS);
 
