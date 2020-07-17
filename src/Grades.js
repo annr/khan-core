@@ -9,6 +9,7 @@ import data from "./data/ccssm-flare.json";
 import cc from "./data/cc.json";
 
 // import updateSidePanel, { resetSidePanel } from "./update-side-panel";
+import updateDetails, { resetDetailAreas } from "./update-details";
 import highlightConnected, { unsetConnected } from "./highlight-connected";
 
 import "./Grades.css";
@@ -143,7 +144,7 @@ export default class Grades extends React.Component {
                             // resetSidePanel(d);
                             unsetConnected(this);
                         } else {
-                            // updateSidePanel(d);
+                            updateDetails(d);
                             highlightConnected(d, CC_CONNECTION_NODES, CC_LINKS);
 
                             select(this.parentNode)

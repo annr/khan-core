@@ -47,17 +47,17 @@ export default class Container extends React.Component {
         }
 
         // do it
-        setTimeout(() => {
-            zoom.scaleBy(canvasNode.transition().ease(easeQuadOut).duration(3000), 0.125);
-            setTimeout(() => {
-                const title = document.getElementById("khan-core-title");
-                title.style.fill = "black";
-                setTimeout(() => {
-                    const title = document.getElementById("khan-core-subtitle");
-                    title.style.fill = "black";
-                }, 2000);
-            }, 4000);
-        }, 1000);
+        // setTimeout(() => {
+        //     zoom.scaleBy(canvasNode.transition().ease(easeQuadOut).duration(3000), 0.125);
+        //     setTimeout(() => {
+        //         const title = document.getElementById("khan-core-title");
+        //         title.style.fill = "black";
+        //         setTimeout(() => {
+        //             const title = document.getElementById("khan-core-subtitle");
+        //             title.style.fill = "black";
+        //         }, 2000);
+        //     }, 4000);
+        // }, 1000);
     }
 
     renderGrades() {

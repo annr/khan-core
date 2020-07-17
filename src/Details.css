@@ -1,4 +1,81 @@
-.testStyle {
-    font-size: 20pt;
-    color: black;
+.details {
+    font-size: 60pt;
+    color:black;
 }
+
+#initialContent, #selectedStandardHeadingWrapper {
+    padding: 0 2px;
+}
+
+.inlineLogo {
+    vertical-align: bottom;
+}
+.instructionsWrapper {
+    line-height: 180%;
+}
+
+#description {
+    padding: 8px 2px;
+}
+
+#cluster {
+    display: none;
+    border-radius: 4px;
+    padding: 12px;
+    line-height: 130%;
+    margin-top: 20px;
+}
+
+#clusterDescription {
+    margin-bottom: 0;
+    margin-top: 8px;
+}
+
+#clusterDescription p {
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+dl#topics div {
+    margin-bottom: 8px;
+    padding: 8px;
+}
+
+dl#topics dt {
+    font-weight: bold;
+}
+dl#topics dd {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+dl#topics div.selectedTopic {
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+#khanContent {
+    display: none;
+}
+
+#khanContentLinks {
+    margin-top: 0;
+    padding-left: 8px;
+    list-style-type: none;
+}
+#khanContentLinks li {
+    margin-bottom: 8px;
+}
+
+.cluster-major {
+    background-color:#b6e0b5;
+}
+
+.cluster-additional {
+    background-color: #bdd6f2;
+}
+
+.cluster-supporting {
+    background-color:#f7eaa1;
+}
+    
