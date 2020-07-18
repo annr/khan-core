@@ -123,6 +123,12 @@ export default class Grades extends React.Component {
                     }
                     return genericClass;
                 })
+                // .attr("tabindex", function (d) {
+                //     if (!d.children) {
+                //         // select(this.parentNode.className).classed("leaf-group");
+                //         return "0";
+                //     }
+                // })
                 .on("mouseover", function (d, event) {
                     select(`#tooltip-${d.data.id}`).style("display", "inline");
                 })
